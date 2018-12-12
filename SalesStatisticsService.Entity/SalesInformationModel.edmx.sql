@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/12/2018 22:30:20
+-- Date Created: 12/13/2018 02:01:02
 -- Generated from EDMX file: D:\Projects\SalesStatisticsService\SalesStatisticsService.Entity\SalesInformationModel.edmx
 -- --------------------------------------------------
 
@@ -17,11 +17,32 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK_ManagerSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Sales] DROP CONSTRAINT [FK_ManagerSale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_ProductSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Sales] DROP CONSTRAINT [FK_ProductSale];
+GO
+IF OBJECT_ID(N'[dbo].[FK_CustomerSale]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Sales] DROP CONSTRAINT [FK_CustomerSale];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[Products]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Products];
+GO
+IF OBJECT_ID(N'[dbo].[Managers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Managers];
+GO
+IF OBJECT_ID(N'[dbo].[Customers]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Customers];
+GO
+IF OBJECT_ID(N'[dbo].[Sales]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[Sales];
+GO
 
 -- --------------------------------------------------
 -- Creating all tables

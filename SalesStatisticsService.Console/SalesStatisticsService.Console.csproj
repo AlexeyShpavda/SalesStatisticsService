@@ -43,5 +43,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.DataAccessLayer\SalesStatisticsService.DataAccessLayer.csproj">
+      <Project>{2c42e3ac-4634-48e9-9da1-529c2bfba33d}</Project>
+      <Name>SalesStatisticsService.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SalesStatisticsService.Entity\SalesStatisticsService.Entity.csproj">
+      <Project>{5dac17ac-1852-4f7c-a763-fb70846b0aae}</Project>
+      <Name>SalesStatisticsService.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
