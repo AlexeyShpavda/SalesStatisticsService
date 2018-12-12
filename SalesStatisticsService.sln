@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.Enti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.DataAccessLayer", "SalesStatisticsService.DataAccessLayer\SalesStatisticsService.DataAccessLayer.csproj", "{2C42E3AC-4634-48E9-9DA1-529C2BFBA33D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.Contracts", "SalesStatisticsService.Contracts\SalesStatisticsService.Contracts.csproj", "{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2C42E3AC-4634-48E9-9DA1-529C2BFBA33D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C42E3AC-4634-48E9-9DA1-529C2BFBA33D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C42E3AC-4634-48E9-9DA1-529C2BFBA33D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
