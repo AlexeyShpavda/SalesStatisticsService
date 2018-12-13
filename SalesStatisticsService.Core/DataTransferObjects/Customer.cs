@@ -1,6 +1,8 @@
-﻿namespace SalesStatisticsService.Core.DataTransferObjects
+﻿using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+
+namespace SalesStatisticsService.Core.DataTransferObjects
 {
-    public class Customer
+    public class Customer : ICustomer
     {
         public int Id { get; set; }
 

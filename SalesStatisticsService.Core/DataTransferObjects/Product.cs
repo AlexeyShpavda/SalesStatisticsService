@@ -1,6 +1,8 @@
-﻿namespace SalesStatisticsService.Core.DataTransferObjects
+﻿using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+
+namespace SalesStatisticsService.Core.DataTransferObjects
 {
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; set; }
 

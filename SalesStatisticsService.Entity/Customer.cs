@@ -7,12 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+
 namespace SalesStatisticsService.Entity
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class Customer : ICustomer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()

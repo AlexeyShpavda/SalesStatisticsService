@@ -99,5 +99,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.Contracts\SalesStatisticsService.Contracts.csproj">
+      <Project>{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}</Project>
+      <Name>SalesStatisticsService.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,8 @@
-﻿namespace SalesStatisticsService.Core.DataTransferObjects
+﻿using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+
+namespace SalesStatisticsService.Core.DataTransferObjects
 {
-    public class Manager
+    public class Manager : IManager
     {
         public int Id { get; set; }
 

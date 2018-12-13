@@ -7,12 +7,14 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+
 namespace SalesStatisticsService.Entity
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Sale
+    public partial class Sale : ISale
     {
         public int Id { get; set; }
         public int ManagerId { get; set; }
