@@ -1,51 +1,76 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class 
     {
-        private readonly DbSet<TEntity> _dbSet;
-        private readonly DbContext _dbContext;
-
-        public GenericRepository(DbContext dbContext)
+        public void Add(params TEntity[] entities)
         {
-            _dbContext = dbContext;
-            _dbSet = dbContext.Set<TEntity>();
-        }
-
-        public void Add(TEntity entity)
-        {
-            _dbSet.Add(entity);
-        }
-
-        public void Remove(TEntity entity)
-        {
-            if (_dbContext.Entry(entity).State == EntityState.Detached)
+            using (var context = new SalesInformationContext())
             {
-                _dbSet.Attach(entity);
+                foreach (var entity in entities)
+                {
+                    context.Set<TEntity>().Add(entity);
+                    context.Entry(entity).State = EntityState.Added;
+                }
+
+                context.SaveChanges();
             }
-
-            _dbSet.Remove(entity);
         }
 
-        public void Update(TEntity entity)
+        public void Update(params TEntity[] entities)
         {
-            _dbSet.Attach(entity);
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            using (var context = new SalesInformationContext())
+            {
+                foreach (var entity in entities)
+                {
+                    context.Set<TEntity>().Attach(entity);
+                    context.Entry(entity).State = EntityState.Modified;
+                }
+
+                context.SaveChanges();
+            }
         }
 
-        public IQueryable<TEntity> GetAll()
+        public void Remove(params TEntity[] entities)
         {
-            return _dbSet;
+            using (var context = new SalesInformationContext())
+            {
+                foreach (var entity in entities)
+                {
+                    if (context.Entry(entity).State == EntityState.Detached)
+                    {
+                        context.Set<TEntity>().Attach(entity);
+                    }
+
+                    context.Set<TEntity>().Remove(entity);
+                    context.Entry(entity).State = EntityState.Deleted;
+                }
+
+                context.SaveChanges();
+            }
         }
 
-        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TEntity> GetAll()
         {
-            return _dbSet.Where(predicate);
+            using (var context = new SalesInformationContext())
+            {
+                return context.Set<TEntity>().AsNoTracking().ToList();
+            }
+        }
+
+        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            using (var context = new SalesInformationContext())
+            {
+                return context.Set<TEntity>().AsNoTracking().Where(predicate).ToList();
+            }
         }
     }
 }

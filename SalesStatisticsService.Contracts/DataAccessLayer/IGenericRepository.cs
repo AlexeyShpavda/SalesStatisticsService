@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -6,14 +7,14 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {
-        void Add(TEntity entity);
+        void Add(params TEntity[] entities);
 
-        void Remove(TEntity entity);
+        void Update(params TEntity[] entities);
 
-        void Update(TEntity entity);
+        void Remove(params TEntity[] entities);
 
-        IQueryable<TEntity> GetAll();
+        IEnumerable<TEntity> GetAll();
 
-        IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }
