@@ -35,7 +35,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataTransferObjects\Customer.cs" />
+    <Compile Include="DataTransferObjects\Manager.cs" />
+    <Compile Include="DataTransferObjects\Product.cs" />
+    <Compile Include="DataTransferObjects\Sale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
