@@ -6,17 +6,15 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
     {
         internal static void AddEventHandlers(FileSystemWatcher fileSystemWatcher)
         {
-            fileSystemWatcher.Changed += WatcherEventHandler.OnChanged;
-            fileSystemWatcher.Created += WatcherEventHandler.OnChanged;
-            fileSystemWatcher.Deleted += WatcherEventHandler.OnChanged;
+            fileSystemWatcher.Created += WatcherEventHandler.OnCreated;
+            fileSystemWatcher.Deleted += WatcherEventHandler.OnDeleted;
             fileSystemWatcher.Renamed += WatcherEventHandler.OnRenamed;
         }
 
         internal static void RemoveEventHandlers(FileSystemWatcher fileSystemWatcher)
         {
-            fileSystemWatcher.Changed -= WatcherEventHandler.OnChanged;
-            fileSystemWatcher.Created -= WatcherEventHandler.OnChanged;
-            fileSystemWatcher.Deleted -= WatcherEventHandler.OnChanged;
+            fileSystemWatcher.Created -= WatcherEventHandler.OnCreated;
+            fileSystemWatcher.Deleted -= WatcherEventHandler.OnDeleted;
             fileSystemWatcher.Renamed -= WatcherEventHandler.OnRenamed;
         }
     }

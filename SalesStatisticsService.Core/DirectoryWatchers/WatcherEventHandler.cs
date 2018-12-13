@@ -5,7 +5,12 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
 {
     internal class WatcherEventHandler
     {
-        internal static void OnChanged(object source, FileSystemEventArgs e)
+        internal static void OnCreated(object source, FileSystemEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal static void OnDeleted(object source, FileSystemEventArgs e)
         {
             throw new NotImplementedException();
         }
