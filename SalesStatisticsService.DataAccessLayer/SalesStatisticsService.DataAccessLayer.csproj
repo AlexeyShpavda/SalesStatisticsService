@@ -43,10 +43,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.Contracts\SalesStatisticsService.Contracts.csproj">
+      <Project>{ad0e9ebf-d8a2-43c9-befd-70c94fe86718}</Project>
+      <Name>SalesStatisticsService.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
