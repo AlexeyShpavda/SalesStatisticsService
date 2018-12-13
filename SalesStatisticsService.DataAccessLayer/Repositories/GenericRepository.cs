@@ -4,15 +4,22 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using SalesStatisticsService.Contracts.DataAccessLayer;
-using SalesStatisticsService.Entity;
+using SalesStatisticsService.Entity.Factories;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class 
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
+        private readonly SalesInformationContextFactory _salesInformationContextFactory;
+
+        public GenericRepository()
+        {
+            _salesInformationContextFactory = new SalesInformationContextFactory();
+        }
+
         public void Add(params TEntity[] entities)
         {
-            using (var context = new SalesInformationContext())
+            using (var context = _salesInformationContextFactory.CreateInstance())
             {
                 foreach (var entity in entities)
                 {
@@ -26,7 +33,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         public void Update(params TEntity[] entities)
         {
-            using (var context = new SalesInformationContext())
+            using (var context = _salesInformationContextFactory.CreateInstance())
             {
                 foreach (var entity in entities)
                 {
@@ -40,7 +47,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         public void Remove(params TEntity[] entities)
         {
-            using (var context = new SalesInformationContext())
+            using (var context = _salesInformationContextFactory.CreateInstance())
             {
                 foreach (var entity in entities)
                 {
@@ -59,7 +66,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         public IEnumerable<TEntity> GetAll()
         {
-            using (var context = new SalesInformationContext())
+            using (var context = _salesInformationContextFactory.CreateInstance())
             {
                 return context.Set<TEntity>().AsNoTracking().ToList();
             }
@@ -67,7 +74,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            using (var context = new SalesInformationContext())
+            using (var context = _salesInformationContextFactory.CreateInstance())
             {
                 return context.Set<TEntity>().AsNoTracking().Where(predicate).ToList();
             }

@@ -44,6 +44,7 @@
     <Compile Include="Customer.cs">
       <DependentUpon>SalesInformationModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Factories\SalesInformationContextFactory.cs" />
     <Compile Include="Manager.cs">
       <DependentUpon>SalesInformationModel.tt</DependentUpon>
     </Compile>
