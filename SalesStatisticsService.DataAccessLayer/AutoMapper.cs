@@ -4,9 +4,9 @@ using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer
 {
-    public static class AutoMapper
+    internal static class AutoMapper
     {
-        public static MapperConfiguration CreateConfiguration()
+        internal static MapperConfiguration CreateConfiguration()
         {
             return new MapperConfiguration(config => {
                 config.CreateMap<Customer, ICustomer>();

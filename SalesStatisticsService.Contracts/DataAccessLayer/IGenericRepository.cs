@@ -4,13 +4,15 @@ using System.Linq.Expressions;
 
 namespace SalesStatisticsService.Contracts.DataAccessLayer
 {
-    public interface IGenericRepository<TEntity> where TEntity : class
+    public interface IGenericRepository<TEntity> : IDisposable where TEntity : class
     {
         void Add(params TEntity[] entities);
 
         void Update(params TEntity[] entities);
 
         void Remove(params TEntity[] entities);
+
+        TEntity Get(int id);
 
         IEnumerable<TEntity> GetAll();
 

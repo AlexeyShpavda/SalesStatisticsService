@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -43,6 +49,7 @@
     <Compile Include="DirectoryWatchers\DirectoryWatcher.cs" />
     <Compile Include="DirectoryWatchers\WatcherEventHandler.cs" />
     <Compile Include="DirectoryWatchers\WatcherMapping.cs" />
+    <Compile Include="UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -50,6 +57,18 @@
       <Project>{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}</Project>
       <Name>SalesStatisticsService.Contracts</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SalesStatisticsService.DataAccessLayer\SalesStatisticsService.DataAccessLayer.csproj">
+      <Project>{2C42E3AC-4634-48E9-9DA1-529C2BFBA33D}</Project>
+      <Name>SalesStatisticsService.DataAccessLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SalesStatisticsService.Entity\SalesStatisticsService.Entity.csproj">
+      <Project>{5DAC17AC-1852-4F7C-A763-FB70846B0AAE}</Project>
+      <Name>SalesStatisticsService.Entity</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

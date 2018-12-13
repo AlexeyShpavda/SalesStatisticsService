@@ -6,84 +6,88 @@ using System.Linq.Expressions;
 using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer;
-using SalesStatisticsService.Entity.Factories;
+using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IDataTransferObject
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IDataTransferObject 
     {
-        private readonly SalesInformationContextFactory _salesInformationContextFactory;
+        private readonly SalesInformationContext _context;
 
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
 
-        public GenericRepository()
+        public GenericRepository(SalesInformationContext context)
         {
-            _mapper = AutoMapper.CreateConfiguration().CreateMapper();
+            _context = context;
 
-            _salesInformationContextFactory = new SalesInformationContextFactory();
+            _mapper = AutoMapper.CreateConfiguration().CreateMapper();
         }
 
         public void Add(params TEntity[] entities)
         {
-            using (var context = _salesInformationContextFactory.CreateInstance())
+            foreach (var entity in entities)
             {
-                foreach (var entity in entities)
-                {
-                    context.Set<TEntity>().Add(entity);
-                    context.Entry(entity).State = EntityState.Added;
-                }
-
-                context.SaveChanges();
+                _context.Set<TEntity>().Add(entity);
+                _context.Entry(entity).State = EntityState.Added;
             }
         }
 
         public void Update(params TEntity[] entities)
         {
-            using (var context = _salesInformationContextFactory.CreateInstance())
+            foreach (var entity in entities)
             {
-                foreach (var entity in entities)
-                {
-                    context.Set<TEntity>().Attach(entity);
-                    context.Entry(entity).State = EntityState.Modified;
-                }
-
-                context.SaveChanges();
+                _context.Set<TEntity>().Attach(entity);
+                _context.Entry(entity).State = EntityState.Modified;
             }
         }
 
         public void Remove(params TEntity[] entities)
         {
-            using (var context = _salesInformationContextFactory.CreateInstance())
+            foreach (var entity in entities)
             {
-                foreach (var entity in entities)
+                if (_context.Entry(entity).State == EntityState.Detached)
                 {
-                    if (context.Entry(entity).State == EntityState.Detached)
-                    {
-                        context.Set<TEntity>().Attach(entity);
-                    }
-
-                    context.Set<TEntity>().Remove(entity);
-                    context.Entry(entity).State = EntityState.Deleted;
+                    _context.Set<TEntity>().Attach(entity);
                 }
 
-                context.SaveChanges();
+                _context.Set<TEntity>().Remove(entity);
+                _context.Entry(entity).State = EntityState.Deleted;
             }
+        }
+
+        public TEntity Get(int id)
+        {
+            return _context.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            using (var context = _salesInformationContextFactory.CreateInstance())
-            {
-                return context.Set<TEntity>().AsNoTracking().ToList();
-            }
+            return _context.Set<TEntity>().AsNoTracking().ToList();
         }
 
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            using (var context = _salesInformationContextFactory.CreateInstance())
+            return _context.Set<TEntity>().AsNoTracking().Where(predicate).ToList();
+        }
+
+        private bool _disposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
             {
-                return context.Set<TEntity>().AsNoTracking().Where(predicate).ToList();
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
             }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

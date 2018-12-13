@@ -40,6 +40,7 @@
     <Compile Include="Core\DataTransferObjects\IManager.cs" />
     <Compile Include="Core\DataTransferObjects\IProduct.cs" />
     <Compile Include="Core\DataTransferObjects\ISale.cs" />
+    <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="DataAccessLayer\IGenericRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -9,5 +9,9 @@ namespace SalesStatisticsService.Core.DataTransferObjects
         public System.DateTime Date { get; set; }
 
         public decimal Sum { get; set; }
+
+        public ICustomer Customer { get; set; }
+        public IManager Manager { get; set; }
+        public IProduct Product { get; set; }
     }
 }
