@@ -2,6 +2,7 @@
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.DataAccessLayer.Repositories;
 using SalesStatisticsService.Entity;
 
@@ -11,19 +12,19 @@ namespace SalesStatisticsService.Core
     {
         private readonly SalesInformationContext _context;
 
-        public IGenericRepository<ICustomer> Customers { get; }
-        public IGenericRepository<IManager> Managers { get; }
-        public IGenericRepository<IProduct> Products { get; }
-        public IGenericRepository<ISale> Sales { get; }
+        public IGenericRepository<ICustomer, ICustomerEntity> Customers { get; }
+        public IGenericRepository<IManager, IManagerEntity> Managers { get; }
+        public IGenericRepository<IProduct, IProductEntity> Products { get; }
+        public IGenericRepository<ISale, ISaleEntity> Sales { get; }
 
         public UnitOfWork()
         {
             _context = new SalesInformationContext();
 
-            Customers = new GenericRepository<ICustomer>(_context);
-            Managers = new GenericRepository<IManager>(_context);
-            Products = new GenericRepository<IProduct>(_context);
-            Sales = new GenericRepository<ISale>(_context);
+            Customers = new GenericRepository<ICustomer, ICustomerEntity>(_context);
+            Managers = new GenericRepository<IManager, IManagerEntity>(_context);
+            Products = new GenericRepository<IProduct, IProductEntity>(_context);
+            Sales = new GenericRepository<ISale, ISaleEntity>(_context);
         }
 
         public void Save()

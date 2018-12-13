@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Entity;
 
@@ -20,6 +21,8 @@ namespace SalesStatisticsService.DataAccessLayer
 
                 config.CreateMap<ISaleEntity, ISale>();
                 config.CreateMap<ISale, ISaleEntity>();
+
+                config.CreateMap<IEnumerable<IEntity>, IEnumerable<IDataTransferObject>>();
             });
         }
     }

@@ -6,11 +6,14 @@ using System.Linq.Expressions;
 using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IDataTransferObject 
+    public class GenericRepository<TModel, TEntity> : IGenericRepository<TModel, TEntity>
+        where TModel: class, IDataTransferObject
+        where TEntity : class, IEntity
     {
         private readonly SalesInformationContext _context;
 
@@ -23,28 +26,34 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
             _mapper = AutoMapper.CreateConfiguration().CreateMapper();
         }
 
-        public void Add(params TEntity[] entities)
+        public void Add(params TModel[] models)
         {
-            foreach (var entity in entities)
+            foreach (var model in models)
             {
+                var entity = _mapper.Map<TEntity>(model);
+
                 _context.Set<TEntity>().Add(entity);
                 _context.Entry(entity).State = EntityState.Added;
             }
         }
 
-        public void Update(params TEntity[] entities)
+        public void Update(params TModel[] models)
         {
-            foreach (var entity in entities)
+            foreach (var model in models)
             {
+                var entity = _mapper.Map<TEntity>(model);
+
                 _context.Set<TEntity>().Attach(entity);
                 _context.Entry(entity).State = EntityState.Modified;
             }
         }
 
-        public void Remove(params TEntity[] entities)
+        public void Remove(params TModel[] models)
         {
-            foreach (var entity in entities)
+            foreach (var model in models)
             {
+                var entity = _mapper.Map<TEntity>(model);
+
                 if (_context.Entry(entity).State == EntityState.Detached)
                 {
                     _context.Set<TEntity>().Attach(entity);
@@ -55,19 +64,24 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
             }
         }
 
-        public TEntity Get(int id)
+        public TModel Get(int id)
         {
-            return _context.Set<TEntity>().Find(id);
+            return _mapper.Map<TModel>(_context.Set<TEntity>().Find(id));
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TModel> GetAll()
         {
-            return _context.Set<TEntity>().AsNoTracking().ToList();
+            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(_context.Set<TEntity>()
+                .AsNoTracking()
+                .ToList());
         }
 
-        public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _context.Set<TEntity>().AsNoTracking().Where(predicate).ToList();
+            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(_context.Set<TEntity>()
+                .AsNoTracking()
+                .Where(predicate)
+                .ToList());
         }
 
         private bool _disposed;

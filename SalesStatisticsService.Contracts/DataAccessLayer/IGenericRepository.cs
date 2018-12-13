@@ -1,21 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.Contracts.DataAccessLayer
 {
-    public interface IGenericRepository<TEntity> : IDisposable where TEntity : class
+    public interface IGenericRepository<TModel, TEntity> : IDisposable
+        where TModel : class, IDataTransferObject
+        where TEntity : class, IEntity
     {
-        void Add(params TEntity[] entities);
+        void Add(params TModel[] models);
 
-        void Update(params TEntity[] entities);
+        void Update(params TModel[] entities);
 
-        void Remove(params TEntity[] entities);
+        void Remove(params TModel[] entities);
 
-        TEntity Get(int id);
+        TModel Get(int id);
 
-        IEnumerable<TEntity> GetAll();
+        IEnumerable<TModel> GetAll();
 
-        IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }
