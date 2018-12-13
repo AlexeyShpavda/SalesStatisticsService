@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
-using SalesStatisticsService.Entity;
+using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer
 {
@@ -9,17 +9,17 @@ namespace SalesStatisticsService.DataAccessLayer
         internal static MapperConfiguration CreateConfiguration()
         {
             return new MapperConfiguration(config => {
-                config.CreateMap<Customer, ICustomer>();
-                config.CreateMap<ICustomer, Customer>();
+                config.CreateMap<ICustomerEntity, ICustomer>();
+                config.CreateMap<ICustomer, ICustomerEntity>();
 
-                config.CreateMap<Product, IProduct>();
-                config.CreateMap<IProduct, Product>();
+                config.CreateMap<IProductEntity, IProduct>();
+                config.CreateMap<IProduct, IProductEntity>();
 
-                config.CreateMap<Manager, IManager>();
-                config.CreateMap<IManager, Manager>();
+                config.CreateMap<IManagerEntity, IManager>();
+                config.CreateMap<IManager, IManagerEntity>();
 
-                config.CreateMap<Sale, ISale>();
-                config.CreateMap<ISale, Sale>();
+                config.CreateMap<ISaleEntity, ISale>();
+                config.CreateMap<ISale, ISaleEntity>();
             });
         }
     }
