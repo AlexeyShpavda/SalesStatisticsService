@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +40,9 @@
     <Compile Include="DataTransferObjects\Manager.cs" />
     <Compile Include="DataTransferObjects\Product.cs" />
     <Compile Include="DataTransferObjects\Sale.cs" />
+    <Compile Include="DirectoryWatchers\DirectoryWatcher.cs" />
+    <Compile Include="DirectoryWatchers\WatcherEventHandler.cs" />
+    <Compile Include="DirectoryWatchers\WatcherMapping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

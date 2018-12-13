@@ -44,6 +44,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.Core\SalesStatisticsService.Core.csproj">
+      <Project>{c7a18be5-6875-4824-8d9e-b414a24a4e9e}</Project>
+      <Name>SalesStatisticsService.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SalesStatisticsService.DataAccessLayer\SalesStatisticsService.DataAccessLayer.csproj">
       <Project>{2c42e3ac-4634-48e9-9da1-529c2bfba33d}</Project>
       <Name>SalesStatisticsService.DataAccessLayer</Name>
