@@ -32,6 +32,12 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
             _dbSet.Remove(entity);
         }
 
+        public void Update(TEntity entity)
+        {
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
+        }
+
         public IQueryable<TEntity> GetAll()
         {
             return _dbSet;

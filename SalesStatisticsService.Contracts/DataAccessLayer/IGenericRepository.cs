@@ -10,6 +10,8 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer
 
         void Remove(TEntity entity);
 
+        void Update(TEntity entity);
+
         IQueryable<TEntity> GetAll();
 
         IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
