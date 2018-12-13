@@ -3,17 +3,23 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
+using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer;
 using SalesStatisticsService.Entity.Factories;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class, IDataTransferObject
     {
         private readonly SalesInformationContextFactory _salesInformationContextFactory;
 
+        private IMapper _mapper;
+
         public GenericRepository()
         {
+            _mapper = AutoMapper.CreateConfiguration().CreateMapper();
+
             _salesInformationContextFactory = new SalesInformationContextFactory();
         }
 

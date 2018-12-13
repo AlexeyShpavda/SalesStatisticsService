@@ -1,9 +1,7 @@
 ﻿namespace SalesStatisticsService.Contracts.Core.DataTransferObjects
 {
-    public interface ISale
+    public interface ISale : IDataTransferObject
     {
-        int Id { get; set; }
-
         System.DateTime Date { get; set; }
 
         decimal Sum { get; set; }

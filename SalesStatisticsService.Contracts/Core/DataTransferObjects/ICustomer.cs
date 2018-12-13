@@ -1,9 +1,7 @@
 ﻿namespace SalesStatisticsService.Contracts.Core.DataTransferObjects
 {
-    public interface ICustomer
+    public interface ICustomer : IDataTransferObject
     {
-        int Id { get; set; }
-
         string FirstName { get; set; }
 
         string LastName { get; set; }

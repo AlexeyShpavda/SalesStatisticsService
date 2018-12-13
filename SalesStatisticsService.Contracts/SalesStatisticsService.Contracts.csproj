@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\DataTransferObjects\ICustomer.cs" />
+    <Compile Include="Core\DataTransferObjects\IDataTransferObject.cs" />
     <Compile Include="Core\DataTransferObjects\IManager.cs" />
     <Compile Include="Core\DataTransferObjects\IProduct.cs" />
     <Compile Include="Core\DataTransferObjects\ISale.cs" />
