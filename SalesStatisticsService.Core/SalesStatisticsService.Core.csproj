@@ -42,6 +42,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller.cs" />
     <Compile Include="DataTransferObjects\Customer.cs" />
     <Compile Include="DataTransferObjects\Manager.cs" />
     <Compile Include="DataTransferObjects\Product.cs" />

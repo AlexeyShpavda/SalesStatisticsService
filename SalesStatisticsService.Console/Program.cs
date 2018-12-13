@@ -1,4 +1,4 @@
-﻿using SalesStatisticsService.Core.DirectoryWatchers;
+﻿using SalesStatisticsService.Core;
 
 namespace SalesStatisticsService.Console
 {
@@ -6,9 +6,9 @@ namespace SalesStatisticsService.Console
     {
         private static void Main()
         {
-            var directoryWatcher = new DirectoryWatcher();
+            var controller = new Controller();
 
-            directoryWatcher.Run();
+            controller.Run();
 
             System.Console.ReadKey();
         }

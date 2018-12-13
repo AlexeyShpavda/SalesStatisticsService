@@ -1,15 +1,17 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Security.Permissions;
+using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
 
 namespace SalesStatisticsService.Core.DirectoryWatchers
 {
-    public class DirectoryWatcher
+    public class DirectoryWatcher : IDirectoryWatcher
     {
-        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public void Run()
+        private readonly FileSystemWatcher _fileSystemWatcher;
+
+        public DirectoryWatcher()
         {
-            var fileSystemWatcher = new FileSystemWatcher
+            _fileSystemWatcher = new FileSystemWatcher
             {
                 Path = ConfigurationManager.AppSettings["csvFilesPath"],
                 NotifyFilter = NotifyFilters.LastAccess
@@ -18,17 +20,21 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
                                | NotifyFilters.DirectoryName,
                 Filter = "*.csv"
             };
-
-            WatcherMapping.AddEventHandlers(fileSystemWatcher);
-
-            fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-        public void Stop(FileSystemWatcher fileSystemWatcher)
-        {
-            WatcherMapping.RemoveEventHandlers(fileSystemWatcher);
+        [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+        public void Run()
+        { 
+            WatcherMapping.AddEventHandlers(_fileSystemWatcher);
 
-            fileSystemWatcher.EnableRaisingEvents = false;
+            _fileSystemWatcher.EnableRaisingEvents = true;
+        }
+
+        public void Stop()
+        {
+            WatcherMapping.RemoveEventHandlers(_fileSystemWatcher);
+
+            _fileSystemWatcher.EnableRaisingEvents = false;
         }
     }
 }
