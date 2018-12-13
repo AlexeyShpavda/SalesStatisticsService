@@ -13,10 +13,10 @@ namespace SalesStatisticsService.Entity
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SalesInformationModelContainer : DbContext
+    public partial class SalesInformationContext : DbContext
     {
-        public SalesInformationModelContainer()
-            : base("name=SalesInformationModelContainer")
+        public SalesInformationContext()
+            : base("name=SalesInformationContext")
         {
         }
     
