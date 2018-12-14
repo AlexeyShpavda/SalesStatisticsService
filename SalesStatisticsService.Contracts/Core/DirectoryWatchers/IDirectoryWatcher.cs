@@ -2,8 +2,8 @@
 {
     public interface IDirectoryWatcher
     {
-        void Run();
+        void Run(IController controller);
 
-        void Stop();
+        void Stop(IController controller);
     }
 }

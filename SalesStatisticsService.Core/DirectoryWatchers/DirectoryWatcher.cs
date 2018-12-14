@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.IO;
 using System.Security.Permissions;
+using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
 
 namespace SalesStatisticsService.Core.DirectoryWatchers
@@ -23,16 +24,16 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public void Run()
+        public void Run(IController controller)
         { 
-            WatcherMapping.AddEventHandlers(_fileSystemWatcher);
+            WatcherMapping.AddEventHandlers(_fileSystemWatcher, controller);
 
             _fileSystemWatcher.EnableRaisingEvents = true;
         }
 
-        public void Stop()
+        public void Stop(IController controller)
         {
-            WatcherMapping.RemoveEventHandlers(_fileSystemWatcher);
+            WatcherMapping.RemoveEventHandlers(_fileSystemWatcher, controller);
 
             _fileSystemWatcher.EnableRaisingEvents = false;
         }
