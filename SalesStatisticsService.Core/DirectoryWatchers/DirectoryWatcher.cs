@@ -15,11 +15,12 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
             _fileSystemWatcher = new FileSystemWatcher
             {
                 Path = ConfigurationManager.AppSettings["csvFilesPath"],
+                Filter = ConfigurationManager.AppSettings["csvFilesFilter"],
+
                 NotifyFilter = NotifyFilters.LastAccess
                                | NotifyFilters.LastWrite
                                | NotifyFilters.FileName
-                               | NotifyFilters.DirectoryName,
-                Filter = "*.csv"
+                               | NotifyFilters.DirectoryName
             };
         }
 
