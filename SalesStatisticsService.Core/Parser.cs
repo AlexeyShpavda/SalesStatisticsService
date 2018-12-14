@@ -17,10 +17,5 @@ namespace SalesStatisticsService.Core
                 return csvReader.GetRecords<ISale>().ToList();
             }
         }
-
-        public string ParseFileName(string name)
-        {
-            return name.Split('_').First();
-        }
     }
 }

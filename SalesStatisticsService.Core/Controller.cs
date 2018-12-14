@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
 using SalesStatisticsService.Core.DirectoryWatchers;
 using SalesStatisticsService.Entity;
+using IParser = SalesStatisticsService.Contracts.Core.IParser;
 
 namespace SalesStatisticsService.Core
 {
@@ -35,9 +37,10 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
-            var sales = ParseFile(e.FullPath);
+            var task = Task<IEnumerable<ISale>>.Factory.StartNew(() => _parser.ParseFile(e.FullPath));
 
-            WriteToDatabase(sales);
+            task.ContinueWith((t, o) => WriteToDatabase(t.Result), null,
+                TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         private void WriteToDatabase(IEnumerable<ISale> sales)
@@ -46,11 +49,6 @@ namespace SalesStatisticsService.Core
             {
                 _unitOfWork.Sales.Add(sale);
             }
-        }
-
-        private IEnumerable<ISale> ParseFile(string filePath)
-        {
-            return _parser.ParseFile(filePath);
         }
     }
 }
