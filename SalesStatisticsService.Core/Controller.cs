@@ -4,6 +4,7 @@ using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
 using SalesStatisticsService.Core.DirectoryWatchers;
+using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.Core
 {
@@ -11,13 +12,13 @@ namespace SalesStatisticsService.Core
     {
         private readonly IDirectoryWatcher _directoryWatcher;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly Parser _parser;
+        private readonly IParser _parser;
 
         public Controller()
         {
             _directoryWatcher = new DirectoryWatcher();
 
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = new UnitOfWork(new SalesInformationContext());
 
             _parser = new Parser();
         }

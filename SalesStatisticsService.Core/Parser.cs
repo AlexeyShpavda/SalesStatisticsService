@@ -6,7 +6,7 @@ using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 
 namespace SalesStatisticsService.Core
 {
-    public class Parser
+    public class Parser : Contracts.Core.IParser
     {
         public IEnumerable<ISale> ParseFile(string filePath)
         {

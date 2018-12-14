@@ -42,6 +42,7 @@
     <Compile Include="Core\DataTransferObjects\ISale.cs" />
     <Compile Include="Core\DirectoryWatchers\IDirectoryWatcher.cs" />
     <Compile Include="Core\IController.cs" />
+    <Compile Include="Core\IParser.cs" />
     <Compile Include="Core\IUnitOfWork.cs" />
     <Compile Include="DataAccessLayer\IGenericRepository.cs" />
     <Compile Include="Entity\ICustomerEntity.cs" />

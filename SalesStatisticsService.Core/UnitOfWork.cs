@@ -17,9 +17,9 @@ namespace SalesStatisticsService.Core
         public IGenericRepository<IProduct, IProductEntity> Products { get; }
         public IGenericRepository<ISale, ISaleEntity> Sales { get; }
 
-        public UnitOfWork()
+        public UnitOfWork(SalesInformationContext context)
         {
-            _context = new SalesInformationContext();
+            _context = context;
 
             Customers = new GenericRepository<ICustomer, ICustomerEntity>(_context);
             Managers = new GenericRepository<IManager, IManagerEntity>(_context);
