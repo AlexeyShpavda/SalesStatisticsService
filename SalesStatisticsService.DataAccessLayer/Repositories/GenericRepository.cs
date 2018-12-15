@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -19,11 +18,11 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         private readonly IMapper _mapper;
 
-        public GenericRepository(SalesInformationContext context)
+        public GenericRepository(SalesInformationContext context, IMapper mapper)
         {
             _context = context;
 
-            _mapper = AutoMapper.CreateConfiguration().CreateMapper();
+            _mapper = mapper;
         }
 
         public void Add(params TModel[] models)
@@ -69,39 +68,22 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
             return _mapper.Map<TModel>(_context.Set<TEntity>().Find(id));
         }
 
-        public IEnumerable<TModel> GetAll()
+        public IQueryable<TModel> GetAll()
         {
-            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(_context.Set<TEntity>()
+            return _mapper.Map<IQueryable<TEntity>, IQueryable<TModel>>(_context.Set<TEntity>()
+                .AsNoTracking());
+        }
+
+        public IQueryable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _mapper.Map<IQueryable<TEntity>, IQueryable<TModel>>(_context.Set<TEntity>()
                 .AsNoTracking()
-                .ToList());
+                .Where(predicate));
         }
 
-        public IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
+        public void Save()
         {
-            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TModel>>(_context.Set<TEntity>()
-                .AsNoTracking()
-                .Where(predicate)
-                .ToList());
-        }
-
-        private bool _disposed;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-            }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            _context.SaveChanges();
         }
     }
 }

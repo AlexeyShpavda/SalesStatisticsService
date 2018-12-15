@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
@@ -48,8 +47,6 @@ namespace SalesStatisticsService.Core
 
         private void WriteToDatabase(IEnumerable<ISale> sales)
         {
-            _saleUnitOfWork.Sales.Add(sales.ToArray());
-            _saleUnitOfWork.Save();
         }
     }
 }

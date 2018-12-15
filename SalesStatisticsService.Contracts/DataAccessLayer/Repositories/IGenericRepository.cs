@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
-    public interface IGenericRepository<TModel, TEntity> : IDisposable
+    public interface IGenericRepository<TModel, TEntity>
         where TModel : class, IDataTransferObject
         where TEntity : class, IEntity
     {
@@ -18,8 +18,10 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 
         TModel Get(int id);
 
-        IEnumerable<TModel> GetAll();
+        IQueryable<TModel> GetAll();
 
-        IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate);
+        IQueryable<TModel> Find(Expression<Func<TEntity, bool>> predicate);
+
+        void Save();
     }
 }

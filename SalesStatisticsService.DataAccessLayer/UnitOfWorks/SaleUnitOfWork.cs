@@ -12,24 +12,20 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
     {
         private readonly SalesInformationContext _context;
 
-        public IGenericRepository<ICustomer, ICustomerEntity> Customers { get; }
-        public IGenericRepository<IManager, IManagerEntity> Managers { get; }
-        public IGenericRepository<IProduct, IProductEntity> Products { get; }
-        public IGenericRepository<ISale, ISaleEntity> Sales { get; }
+        private IGenericRepository<ICustomer, ICustomerEntity> Customers { get; }
+        private IGenericRepository<IManager, IManagerEntity> Managers { get; }
+        private IGenericRepository<IProduct, IProductEntity> Products { get; }
+        private IGenericRepository<ISale, ISaleEntity> Sales { get; }
 
         public SaleUnitOfWork(SalesInformationContext context)
         {
             _context = context;
 
-            Customers = new GenericRepository<ICustomer, ICustomerEntity>(_context);
-            Managers = new GenericRepository<IManager, IManagerEntity>(_context);
-            Products = new GenericRepository<IProduct, IProductEntity>(_context);
-            Sales = new GenericRepository<ISale, ISaleEntity>(_context);
-        }
-
-        public void Save()
-        {
-            _context.SaveChanges();
+            var mapper = AutoMapper.CreateConfiguration().CreateMapper();
+            Customers = new GenericRepository<ICustomer, ICustomerEntity>(_context, mapper);
+            Managers = new GenericRepository<IManager, IManagerEntity>(_context, mapper);
+            Products = new GenericRepository<IProduct, IProductEntity>(_context, mapper);
+            Sales = new GenericRepository<ISale, ISaleEntity>(_context, mapper);
         }
 
         private bool _disposed;
@@ -40,10 +36,6 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
             {
                 if (disposing)
                 {
-                    Customers.Dispose();
-                    Managers.Dispose();
-                    Products.Dispose();
-                    Sales.Dispose();
                     _context.Dispose();
                 }
             }
