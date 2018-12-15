@@ -42,6 +42,7 @@
     <Compile Include="Core\DataTransferObjects\SaleDto.cs" />
     <Compile Include="Core\DirectoryWatchers\IDirectoryWatcher.cs" />
     <Compile Include="Core\IController.cs" />
+    <Compile Include="Core\IFileContent.cs" />
     <Compile Include="Core\IParser.cs" />
     <Compile Include="DataAccessLayer\Repositories\IGenericRepository.cs" />
     <Compile Include="DataAccessLayer\UnitOfWorks\ISaleUnitOfWork.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Entity\IManagerEntity.cs" />
     <Compile Include="Entity\IProductEntity.cs" />
     <Compile Include="Entity\ISaleEntity.cs" />
+    <Compile Include="ISaleInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

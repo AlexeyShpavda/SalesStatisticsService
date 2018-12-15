@@ -11,7 +11,7 @@ using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.Entity
 {
-    public partial class Sale : ISaleEntity
+    public partial class Sale //: ISaleEntity
     {
         public int Id { get; set; }
         public int ManagerId { get; set; }

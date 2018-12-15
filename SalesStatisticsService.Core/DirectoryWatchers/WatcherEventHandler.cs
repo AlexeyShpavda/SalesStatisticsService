@@ -10,14 +10,14 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
             throw new NotImplementedException();
         }
 
-        internal static void OnDeleted(object source, FileSystemEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //internal static void OnDeleted(object source, FileSystemEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        internal static void OnRenamed(object source, RenamedEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+        //internal static void OnRenamed(object source, RenamedEventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

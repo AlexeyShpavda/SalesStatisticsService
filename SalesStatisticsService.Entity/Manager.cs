@@ -13,7 +13,7 @@ namespace SalesStatisticsService.Entity
 {
     using System.Collections.Generic;
     
-    public partial class Manager : IManagerEntity
+    public partial class Manager //: IManagerEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Manager()

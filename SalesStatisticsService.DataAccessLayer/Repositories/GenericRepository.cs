@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,7 +13,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
     public class GenericRepository<TModel, TEntity> : IGenericRepository<TModel, TEntity>
         where TModel: DataTransferObject
-        where TEntity : class, IEntity
+        where TEntity : class//, IEntity
     {
         private readonly SalesInformationContext _context;
 
@@ -74,9 +75,11 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
                 .AsNoTracking());
         }
 
-        public IQueryable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
+        public IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _mapper.Map<IQueryable<TEntity>, IQueryable<TModel>>(_context.Set<TEntity>()
+            //var newPredicate = predicate.Project<TModel, TEntity>();
+
+            return _mapper.Map<IEnumerable<TModel>>(_context.Set<TEntity>()
                 .AsNoTracking()
                 .Where(predicate));
         }
