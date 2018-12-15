@@ -8,6 +8,10 @@ namespace SalesStatisticsService.Contracts.Core.DataTransferObjects
 
         public string LastName { get; set; }
 
+        public CustomerDto()
+        {
+        }
+
         public CustomerDto(string firstName, string lastName)
         {
             FirstName = firstName;

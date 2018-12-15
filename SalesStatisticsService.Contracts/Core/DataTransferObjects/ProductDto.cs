@@ -6,6 +6,10 @@ namespace SalesStatisticsService.Contracts.Core.DataTransferObjects
     {
         public string Name { get; set; }
 
+        public ProductDto()
+        {
+        }
+
         public ProductDto(string name)
         {
             Name = name;
