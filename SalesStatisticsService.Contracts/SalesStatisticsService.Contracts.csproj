@@ -46,12 +46,6 @@
     <Compile Include="Core\IParser.cs" />
     <Compile Include="DataAccessLayer\Repositories\IGenericRepository.cs" />
     <Compile Include="DataAccessLayer\UnitOfWorks\ISaleUnitOfWork.cs" />
-    <Compile Include="Entity\ICustomerEntity.cs" />
-    <Compile Include="Entity\IEntity.cs" />
-    <Compile Include="Entity\IManagerEntity.cs" />
-    <Compile Include="Entity\IProductEntity.cs" />
-    <Compile Include="Entity\ISaleEntity.cs" />
-    <Compile Include="ISaleInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

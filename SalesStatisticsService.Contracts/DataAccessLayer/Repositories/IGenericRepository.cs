@@ -8,7 +8,7 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
     public interface IGenericRepository<TModel, TEntity>
         where TModel : DataTransferObject
-        where TEntity : class//, IEntity
+        where TEntity : class
     {
         void Add(params TModel[] models);
 

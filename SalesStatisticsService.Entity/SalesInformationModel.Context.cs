@@ -23,7 +23,7 @@ namespace SalesStatisticsService.Entity
         {
             throw new UnintentionalCodeFirstException();
         }
-    
+
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }

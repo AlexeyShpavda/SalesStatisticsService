@@ -12,7 +12,7 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
     public class GenericRepository<TModel, TEntity> : IGenericRepository<TModel, TEntity>
         where TModel: DataTransferObject
-        where TEntity : class//, IEntity
+        where TEntity : class
     {
         private readonly SalesInformationContext _context;
 

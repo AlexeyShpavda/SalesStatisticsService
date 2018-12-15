@@ -11,7 +11,7 @@ namespace SalesStatisticsService.Entity
 {
     using System.Collections.Generic;
     
-    public partial class Customer// : ICustomerEntity
+    public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer()

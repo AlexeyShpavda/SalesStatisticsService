@@ -50,7 +50,6 @@
   <ItemGroup>
     <Compile Include="Controller.cs" />
     <Compile Include="DirectoryWatchers\DirectoryWatcher.cs" />
-    <Compile Include="DirectoryWatchers\WatcherEventHandler.cs" />
     <Compile Include="DirectoryWatchers\WatcherMapping.cs" />
     <Compile Include="FileContent.cs" />
     <Compile Include="Parser.cs" />
