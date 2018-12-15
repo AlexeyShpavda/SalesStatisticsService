@@ -14,8 +14,8 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         {
             _fileSystemWatcher = new FileSystemWatcher
             {
-                Path = ConfigurationManager.AppSettings["csvFilesPath"],
-                Filter = ConfigurationManager.AppSettings["csvFilesFilter"],
+                Path = ConfigurationManager.AppSettings["filesPath"],
+                Filter = ConfigurationManager.AppSettings["filesFilter"],
 
                 NotifyFilter = NotifyFilters.LastAccess
                                | NotifyFilters.LastWrite
@@ -29,6 +29,7 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         { 
             WatcherMapping.AddEventHandlers(_fileSystemWatcher, controller);
 
+            // check for the value of the path and filter
             _fileSystemWatcher.EnableRaisingEvents = true;
         }
 

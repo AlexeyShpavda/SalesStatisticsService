@@ -76,8 +76,6 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
         public IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            //var newPredicate = predicate.Project<TModel, TEntity>();
-
             return _mapper.Map<IEnumerable<TModel>>(_context.Set<TEntity>()
                 .AsNoTracking()
                 .Where(predicate));

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +42,8 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
-            var fileNameSplitter = '_';
+            var fileNameSplitter = char.Parse(ConfigurationManager.AppSettings["fileNameSplitter"]);
+
             Task.Run(() =>
             {
                 WriteToDatabase(
@@ -60,8 +62,10 @@ namespace SalesStatisticsService.Core
 
         private IEnumerable<SaleDto> CreateDataTransferObjects (IEnumerable<IFileContent> fileContents, string managerLastName)
         {
+            var dateFormat = ConfigurationManager.AppSettings["dateFormat"];
+
             return (from fileContent in fileContents
-                    let date = DateTime.ParseExact(fileContent.Date, "dd.MM.yyyy", null)
+                    let date = DateTime.ParseExact(fileContent.Date, dateFormat, null)
                     let customerName = _parser.ParseLine(fileContent.Customer, ' ')
                     let customerDto = new CustomerDto(customerName[0], customerName[1])
                     let productDto = new ProductDto(fileContent.Product)
