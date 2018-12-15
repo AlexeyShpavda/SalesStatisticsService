@@ -1,5 +1,4 @@
-﻿using System;
-using SalesStatisticsService.Contracts.Core;
+﻿using SalesStatisticsService.Contracts.Core;
 
 namespace SalesStatisticsService.Core
 {

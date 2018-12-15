@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalesStatisticsService.Contracts.Core
+﻿namespace SalesStatisticsService.Contracts.Core
 {
     public interface IFileContent
     {

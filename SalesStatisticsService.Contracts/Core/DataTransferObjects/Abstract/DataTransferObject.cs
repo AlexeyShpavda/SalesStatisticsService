@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract
+﻿namespace SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract
 {
     public abstract class DataTransferObject
     {

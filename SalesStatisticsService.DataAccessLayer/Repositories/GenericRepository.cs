@@ -6,7 +6,6 @@ using System.Linq.Expressions;
 using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
-using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer.Repositories

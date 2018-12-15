@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using SalesStatisticsService.Contracts.Core;
-using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 
 namespace SalesStatisticsService.Core
 {

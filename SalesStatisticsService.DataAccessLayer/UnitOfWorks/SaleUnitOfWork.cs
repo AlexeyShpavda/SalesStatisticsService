@@ -3,7 +3,6 @@ using System.Linq;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
-using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.DataAccessLayer.Repositories;
 using SalesStatisticsService.Entity;
 

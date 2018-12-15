@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalesStatisticsService.Contracts.Entity
+﻿namespace SalesStatisticsService.Contracts.Entity
 {
     public interface ISaleEntity : IEntity
     {

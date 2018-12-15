@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -68,12 +67,12 @@ namespace SalesStatisticsService.Core
                 foreach (var sale in sales)
                 {
                     //_saleUnitOfWork.Add(saleDtos.Add(CreateDataTransferObjects<SaleDto>(sale, managerLastName)));
-                    _saleUnitOfWork.Add(CreateDataTransferObjects<SaleDto>(sale, managerLastName));
+                    _saleUnitOfWork.Add(CreateDataTransferObjects(sale, managerLastName));
                 }
             }
         }
 
-        private SaleDto CreateDataTransferObjects<T> (IFileContent sale, string managerName)
+        private SaleDto CreateDataTransferObjects (IFileContent sale, string managerName)
         {
             var name = _parser.ParseLine(sale.Customer, ' ');
             var customerDto = new CustomerDto
@@ -92,8 +91,7 @@ namespace SalesStatisticsService.Core
                 Name = sale.Product
             };
 
-            var timeString = sale.Date.Replace('.', '/');
-            var dateTime = DateTime.ParseExact(timeString, "dd/MM/yyyy", null);
+            var dateTime = DateTime.ParseExact(sale.Date, "dd.MM.yyyy", null);
 
             var sum = decimal.Parse(sale.Sum);
 

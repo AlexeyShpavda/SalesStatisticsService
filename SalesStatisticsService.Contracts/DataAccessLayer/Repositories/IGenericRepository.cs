@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
-using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {

@@ -1,8 +1,5 @@
-﻿using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
-using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
-using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer
@@ -27,8 +24,6 @@ namespace SalesStatisticsService.DataAccessLayer
                     .ForMember(x => x.Customer, opt => opt.Ignore())
                     .ForMember(x => x.Manager, opt => opt.Ignore())
                     .ForMember(x => x.Product, opt => opt.Ignore());
-
-                //config.CreateMap<IQueryable<IEntity>, IQueryable<DataTransferObject>>();
             });
         }
     }
