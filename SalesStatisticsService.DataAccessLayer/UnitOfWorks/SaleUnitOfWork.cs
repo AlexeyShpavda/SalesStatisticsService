@@ -40,42 +40,23 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
                     {
                         Customers.Add(sale.Customer);
                         Customers.Save();
-
-                        sale.Customer.Id = Customers.Find(x =>
-                            x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
-
                     }
-                    else
-                    {
-                        sale.Customer.Id = Customers.Find(x =>
-                            x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
-                    }
+                    sale.Customer.Id = Customers.Find(x =>
+                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
 
                     if (!_context.Managers.Any(x => x.LastName == sale.Manager.LastName))
                     {
                         Managers.Add(sale.Manager);
                         Managers.Save();
-
-                        sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
-
                     }
-                    else
-                    {
-                        sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
-                    }
+                    sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
 
                     if (!_context.Products.Any(x => x.Name == sale.Product.Name))
                     {
                         Products.Add(sale.Product);
                         Products.Save();
-
-                        sale.Product.Id = Products.Find(x => x.Name == sale.Product.Name).First().Id;
-
                     }
-                    else
-                    {
-                        sale.Product.Id = Products.Find(x => x.Name == sale.Product.Name).First().Id;
-                    }
+                    sale.Product.Id = Products.Find(x => x.Name == sale.Product.Name).First().Id;
 
                     Sales.Add(sale);
                     Sales.Save();

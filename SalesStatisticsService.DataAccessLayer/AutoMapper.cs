@@ -23,7 +23,10 @@ namespace SalesStatisticsService.DataAccessLayer
                 config.CreateMap<ManagerDto, Manager>();
 
                 config.CreateMap<Sale, SaleDto>();
-                config.CreateMap<SaleDto, Sale>();
+                config.CreateMap<SaleDto, Sale>()
+                    .ForMember(x => x.Customer, opt => opt.Ignore())
+                    .ForMember(x => x.Manager, opt => opt.Ignore())
+                    .ForMember(x => x.Product, opt => opt.Ignore());
 
                 //config.CreateMap<IQueryable<IEntity>, IQueryable<DataTransferObject>>();
             });
