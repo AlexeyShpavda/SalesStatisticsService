@@ -11,7 +11,7 @@ namespace SalesStatisticsService.Service
         {
             var servicesToRun = new ServiceBase[]
             {
-                new Service1()
+                new WindowsService()
             };
             ServiceBase.Run(servicesToRun);
         }

@@ -38,17 +38,27 @@
     <Reference Include="System.ServiceProcess" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Service1.cs">
+    <Compile Include="WindowsService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Service1.Designer.cs">
-      <DependentUpon>Service1.cs</DependentUpon>
+    <Compile Include="WindowsService.Designer.cs">
+      <DependentUpon>WindowsService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.Contracts\SalesStatisticsService.Contracts.csproj">
+      <Project>{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}</Project>
+      <Name>SalesStatisticsService.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SalesStatisticsService.Core\SalesStatisticsService.Core.csproj">
+      <Project>{C7A18BE5-6875-4824-8D9E-B414A24A4E9E}</Project>
+      <Name>SalesStatisticsService.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
