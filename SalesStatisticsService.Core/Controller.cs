@@ -52,31 +52,23 @@ namespace SalesStatisticsService.Core
 
         private void WriteToDatabase(IEnumerable<IFileContent> sales, string managerLastName)
         {
-            IList<SaleDto> saleDtos = new List<SaleDto>();
             using (_saleUnitOfWork)
             {
-                foreach (var sale in sales)
-                {
-                    //_saleUnitOfWork.Add(saleDtos.Add(CreateDataTransferObjects<SaleDto>(sale, managerLastName)));
-                    _saleUnitOfWork.Add(CreateDataTransferObjects(sale, managerLastName));
-                }
+                _saleUnitOfWork.Add(CreateDataTransferObjects(sales, managerLastName).ToArray());
             }
         }
 
-        private SaleDto CreateDataTransferObjects (IFileContent sale, string managerLastName)
+        private IEnumerable<SaleDto> CreateDataTransferObjects (IEnumerable<IFileContent> fileContents, string managerLastName)
         {
-            var date = DateTime.ParseExact(sale.Date, "dd.MM.yyyy", null);
-
-            var customerName = _parser.ParseLine(sale.Customer, ' ');
-            var customerDto = new CustomerDto(customerName[0], customerName[1]);
-
-            var productDto = new ProductDto(sale.Product);
-
-            var sum = decimal.Parse(sale.Sum);
-
-            var managerDto = new ManagerDto(managerLastName);
-
-            return new SaleDto(date, customerDto, productDto, sum, managerDto);
+            return (from fileContent in fileContents
+                    let date = DateTime.ParseExact(fileContent.Date, "dd.MM.yyyy", null)
+                    let customerName = _parser.ParseLine(fileContent.Customer, ' ')
+                    let customerDto = new CustomerDto(customerName[0], customerName[1])
+                    let productDto = new ProductDto(fileContent.Product)
+                    let sum = decimal.Parse(fileContent.Sum)
+                    let managerDto = new ManagerDto(managerLastName)
+                    select new SaleDto(date, customerDto, productDto, sum, managerDto))
+                .ToList();
         }
     }
 }
