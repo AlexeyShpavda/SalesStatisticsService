@@ -34,8 +34,8 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
             {
                 foreach (var sale in sales)
                 {
-                    if (!_context.Customers.Any(x =>
-                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName))
+                    if (Customers.Find(x =>
+                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).Any())
                     {
                         Customers.Add(sale.Customer);
                         Customers.Save();
@@ -43,14 +43,14 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
                     sale.Customer.Id = Customers.Find(x =>
                         x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
 
-                    if (!_context.Managers.Any(x => x.LastName == sale.Manager.LastName))
+                    if (Managers.Find(x => x.LastName == sale.Manager.LastName).Any())
                     {
                         Managers.Add(sale.Manager);
                         Managers.Save();
                     }
                     sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
 
-                    if (!_context.Products.Any(x => x.Name == sale.Product.Name))
+                    if (Products.Find(x => x.Name == sale.Product.Name).Any())
                     {
                         Products.Add(sale.Product);
                         Products.Save();
@@ -71,7 +71,10 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
             {
                 if (disposing)
                 {
-                    _context.Dispose();
+                    lock (this)
+                    {
+                        _context.Dispose();
+                    }
                 }
             }
             _disposed = true;

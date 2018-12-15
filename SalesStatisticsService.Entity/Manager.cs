@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using SalesStatisticsService.Contracts.Entity;
-
 namespace SalesStatisticsService.Entity
 {
     using System.Collections.Generic;
