@@ -1,11 +1,11 @@
 ﻿using System;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
-using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.Entity;
 
-namespace SalesStatisticsService.Contracts.Core
+namespace SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks
 {
-    public interface IUnitOfWork : IDisposable
+    public interface ISaleUnitOfWork : IDisposable
     {
         IGenericRepository<ICustomer, ICustomerEntity> Customers { get; }
         IGenericRepository<IManager, IManagerEntity> Managers { get; }

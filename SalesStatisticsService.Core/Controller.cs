@@ -1,10 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
+using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Core.DirectoryWatchers;
+using SalesStatisticsService.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Entity;
 using IParser = SalesStatisticsService.Contracts.Core.IParser;
 
@@ -13,14 +16,14 @@ namespace SalesStatisticsService.Core
     public class Controller : IController
     {
         private readonly IDirectoryWatcher _directoryWatcher;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly ISaleUnitOfWork _saleUnitOfWork;
         private readonly IParser _parser;
 
         public Controller()
         {
             _directoryWatcher = new DirectoryWatcher();
 
-            _unitOfWork = new UnitOfWork(new SalesInformationContext());
+            _saleUnitOfWork = new SaleUnitOfWork(new SalesInformationContext());
 
             _parser = new Parser();
         }
@@ -45,10 +48,8 @@ namespace SalesStatisticsService.Core
 
         private void WriteToDatabase(IEnumerable<ISale> sales)
         {
-            foreach (var sale in sales)
-            {
-                _unitOfWork.Sales.Add(sale);
-            }
+            _saleUnitOfWork.Sales.Add(sales.ToArray());
+            _saleUnitOfWork.Save();
         }
     }
 }

@@ -1,14 +1,14 @@
 ﻿using System;
-using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
-using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
+using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.DataAccessLayer.Repositories;
 using SalesStatisticsService.Entity;
 
-namespace SalesStatisticsService.Core
+namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
 {
-    public class UnitOfWork : IUnitOfWork
+    public class SaleUnitOfWork : ISaleUnitOfWork
     {
         private readonly SalesInformationContext _context;
 
@@ -17,7 +17,7 @@ namespace SalesStatisticsService.Core
         public IGenericRepository<IProduct, IProductEntity> Products { get; }
         public IGenericRepository<ISale, ISaleEntity> Sales { get; }
 
-        public UnitOfWork(SalesInformationContext context)
+        public SaleUnitOfWork(SalesInformationContext context)
         {
             _context = context;
 

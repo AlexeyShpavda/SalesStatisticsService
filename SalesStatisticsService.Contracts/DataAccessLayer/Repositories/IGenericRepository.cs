@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Entity;
 
-namespace SalesStatisticsService.Contracts.DataAccessLayer
+namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
     public interface IGenericRepository<TModel, TEntity> : IDisposable
         where TModel : class, IDataTransferObject

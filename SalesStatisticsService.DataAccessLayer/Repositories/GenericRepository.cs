@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
-using SalesStatisticsService.Contracts.DataAccessLayer;
+using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.Entity;
 
