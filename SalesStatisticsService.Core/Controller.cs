@@ -41,22 +41,13 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
-            //var task = Task<IEnumerable<IFileContent>>.Factory.StartNew(() =>
-            //{
-            //    WriteToDatabase(_parser.ParseFile(e.FullPath));
-            //});
             var fileNameSplitter = '_';
             Task.Run(() =>
-                {
-                    WriteToDatabase(
-                        _parser.ParseFile(e.FullPath),
-                        _parser.ParseLine(e.Name, fileNameSplitter).First());
-                });
-            //task.ContinueWith((t, o) => WriteToDatabase(t.Result), null,
-            //   TaskScheduler.FromCurrentSynchronizationContext());
-
-            //task.ContinueWith((t, o) => WriteToDatabase(t.Result), null,
-            //   TaskScheduler.FromCurrentSynchronizationContext());
+            {
+                WriteToDatabase(
+                    _parser.ParseFile(e.FullPath),
+                    _parser.ParseLine(e.Name, fileNameSplitter).First());
+            });
         }
 
         private void WriteToDatabase(IEnumerable<IFileContent> sales, string managerLastName)
@@ -72,39 +63,20 @@ namespace SalesStatisticsService.Core
             }
         }
 
-        private SaleDto CreateDataTransferObjects (IFileContent sale, string managerName)
+        private SaleDto CreateDataTransferObjects (IFileContent sale, string managerLastName)
         {
-            var name = _parser.ParseLine(sale.Customer, ' ');
-            var customerDto = new CustomerDto
-            {
-                FirstName = name[0],
-                LastName = name[1]
-            };
+            var date = DateTime.ParseExact(sale.Date, "dd.MM.yyyy", null);
 
-            var managerDto = new ManagerDto
-            {
-                LastName = managerName
-            };
+            var customerName = _parser.ParseLine(sale.Customer, ' ');
+            var customerDto = new CustomerDto(customerName[0], customerName[1]);
 
-            var productDto = new ProductDto
-            {
-                Name = sale.Product
-            };
-
-            var dateTime = DateTime.ParseExact(sale.Date, "dd.MM.yyyy", null);
+            var productDto = new ProductDto(sale.Product);
 
             var sum = decimal.Parse(sale.Sum);
 
-            var saleDto = new SaleDto
-            {
-                Manager = managerDto,
-                Product = productDto,
-                Customer = customerDto,
-                Date = dateTime,
-                Sum = sum
-            };
+            var managerDto = new ManagerDto(managerLastName);
 
-            return saleDto;
+            return new SaleDto(date, customerDto, productDto, sum, managerDto);
         }
     }
 }

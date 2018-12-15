@@ -14,5 +14,14 @@ namespace SalesStatisticsService.Contracts.Core.DataTransferObjects
         public decimal Sum { get; set; }
 
         public ManagerDto Manager { get; set; }
+
+        public SaleDto(DateTime date, CustomerDto customer, ProductDto product, decimal sum, ManagerDto manager)
+        {
+            Date = date;
+            Customer = customer;
+            Product = product;
+            Sum = sum;
+            Manager = manager;
+        }
     }
 }
