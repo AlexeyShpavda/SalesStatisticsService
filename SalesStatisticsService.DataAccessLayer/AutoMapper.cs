@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using AutoMapper;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
 using SalesStatisticsService.Contracts.Entity;
 
 namespace SalesStatisticsService.DataAccessLayer
@@ -10,19 +11,19 @@ namespace SalesStatisticsService.DataAccessLayer
         internal static MapperConfiguration CreateConfiguration()
         {
             return new MapperConfiguration(config => {
-                config.CreateMap<ICustomerEntity, ICustomer>();
-                config.CreateMap<ICustomer, ICustomerEntity>();
+                config.CreateMap<ICustomerEntity, CustomerDto>();
+                config.CreateMap<CustomerDto, ICustomerEntity>();
 
-                config.CreateMap<IProductEntity, IProduct>();
-                config.CreateMap<IProduct, IProductEntity>();
+                config.CreateMap<IProductEntity, ProductDto>();
+                config.CreateMap<ProductDto, IProductEntity>();
 
-                config.CreateMap<IManagerEntity, IManager>();
-                config.CreateMap<IManager, IManagerEntity>();
+                config.CreateMap<IManagerEntity, ManagerDto>();
+                config.CreateMap<ManagerDto, IManagerEntity>();
 
-                config.CreateMap<ISaleEntity, ISale>();
-                config.CreateMap<ISale, ISaleEntity>();
+                config.CreateMap<ISaleEntity, SaleDto>();
+                config.CreateMap<SaleDto, ISaleEntity>();
 
-                config.CreateMap<IQueryable<IEntity>, IQueryable<IDataTransferObject>>();
+                config.CreateMap<IQueryable<IEntity>, IQueryable<DataTransferObject>>();
             });
         }
     }

@@ -49,10 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller.cs" />
-    <Compile Include="DataTransferObjects\Customer.cs" />
-    <Compile Include="DataTransferObjects\Manager.cs" />
-    <Compile Include="DataTransferObjects\Product.cs" />
-    <Compile Include="DataTransferObjects\Sale.cs" />
     <Compile Include="DirectoryWatchers\DirectoryWatcher.cs" />
     <Compile Include="DirectoryWatchers\WatcherEventHandler.cs" />
     <Compile Include="DirectoryWatchers\WatcherMapping.cs" />

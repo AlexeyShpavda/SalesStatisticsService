@@ -8,13 +8,13 @@ namespace SalesStatisticsService.Core
 {
     public class Parser : Contracts.Core.IParser
     {
-        public IEnumerable<ISale> ParseFile(string filePath)
+        public IEnumerable<SaleDto> ParseFile(string filePath)
         {
             using (var streamReader = new StreamReader(filePath))
             {
                 var csvReader = new CsvReader(streamReader);
 
-                return csvReader.GetRecords<ISale>().ToList();
+                return csvReader.GetRecords<SaleDto>().ToList();
             }
         }
     }

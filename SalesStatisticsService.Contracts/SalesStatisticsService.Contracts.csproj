@@ -35,11 +35,11 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\DataTransferObjects\ICustomer.cs" />
-    <Compile Include="Core\DataTransferObjects\IDataTransferObject.cs" />
-    <Compile Include="Core\DataTransferObjects\IManager.cs" />
-    <Compile Include="Core\DataTransferObjects\IProduct.cs" />
-    <Compile Include="Core\DataTransferObjects\ISale.cs" />
+    <Compile Include="Core\DataTransferObjects\Abstract\DataTransferObject.cs" />
+    <Compile Include="Core\DataTransferObjects\CustomerDto.cs" />
+    <Compile Include="Core\DataTransferObjects\ManagerDto.cs" />
+    <Compile Include="Core\DataTransferObjects\ProductDto.cs" />
+    <Compile Include="Core\DataTransferObjects\SaleDto.cs" />
     <Compile Include="Core\DirectoryWatchers\IDirectoryWatcher.cs" />
     <Compile Include="Core\IController.cs" />
     <Compile Include="Core\IParser.cs" />

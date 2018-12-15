@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
-using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.Entity;
 using SalesStatisticsService.Entity;
@@ -11,7 +11,7 @@ using SalesStatisticsService.Entity;
 namespace SalesStatisticsService.DataAccessLayer.Repositories
 {
     public class GenericRepository<TModel, TEntity> : IGenericRepository<TModel, TEntity>
-        where TModel: class, IDataTransferObject
+        where TModel: DataTransferObject
         where TEntity : class, IEntity
     {
         private readonly SalesInformationContext _context;

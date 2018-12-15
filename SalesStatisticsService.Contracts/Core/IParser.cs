@@ -5,6 +5,6 @@ namespace SalesStatisticsService.Contracts.Core
 {
     public interface IParser
     {
-        IEnumerable<ISale> ParseFile(string filePath);
+        IEnumerable<SaleDto> ParseFile(string filePath);
     }
 }

@@ -12,20 +12,20 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
     {
         private readonly SalesInformationContext _context;
 
-        private IGenericRepository<ICustomer, ICustomerEntity> Customers { get; }
-        private IGenericRepository<IManager, IManagerEntity> Managers { get; }
-        private IGenericRepository<IProduct, IProductEntity> Products { get; }
-        private IGenericRepository<ISale, ISaleEntity> Sales { get; }
+        private IGenericRepository<CustomerDto, ICustomerEntity> Customers { get; }
+        private IGenericRepository<ManagerDto, IManagerEntity> Managers { get; }
+        private IGenericRepository<ProductDto, IProductEntity> Products { get; }
+        private IGenericRepository<SaleDto, ISaleEntity> Sales { get; }
 
         public SaleUnitOfWork(SalesInformationContext context)
         {
             _context = context;
 
             var mapper = AutoMapper.CreateConfiguration().CreateMapper();
-            Customers = new GenericRepository<ICustomer, ICustomerEntity>(_context, mapper);
-            Managers = new GenericRepository<IManager, IManagerEntity>(_context, mapper);
-            Products = new GenericRepository<IProduct, IProductEntity>(_context, mapper);
-            Sales = new GenericRepository<ISale, ISaleEntity>(_context, mapper);
+            Customers = new GenericRepository<CustomerDto, ICustomerEntity>(_context, mapper);
+            Managers = new GenericRepository<ManagerDto, IManagerEntity>(_context, mapper);
+            Products = new GenericRepository<ProductDto, IProductEntity>(_context, mapper);
+            Sales = new GenericRepository<SaleDto, ISaleEntity>(_context, mapper);
         }
 
         private bool _disposed;

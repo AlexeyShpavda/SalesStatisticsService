@@ -39,13 +39,13 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
-            var task = Task<IEnumerable<ISale>>.Factory.StartNew(() => _parser.ParseFile(e.FullPath));
+            var task = Task<IEnumerable<SaleDto>>.Factory.StartNew(() => _parser.ParseFile(e.FullPath));
 
             task.ContinueWith((t, o) => WriteToDatabase(t.Result), null,
                 TaskScheduler.FromCurrentSynchronizationContext());
         }
 
-        private void WriteToDatabase(IEnumerable<ISale> sales)
+        private void WriteToDatabase(IEnumerable<SaleDto> sales)
         {
         }
     }
