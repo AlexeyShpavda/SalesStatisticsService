@@ -1,6 +1,8 @@
-﻿namespace SalesStatisticsService.Contracts.Core.DirectoryWatchers
+﻿using System;
+
+namespace SalesStatisticsService.Contracts.Core.DirectoryWatchers
 {
-    public interface IDirectoryWatcher
+    public interface IDirectoryWatcher : IDisposable
     {
         void Run(IController controller);
 
