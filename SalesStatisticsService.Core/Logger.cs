@@ -7,13 +7,29 @@ namespace SalesStatisticsService.Core
 {
     internal class Logger
     {
-        private static readonly string LogFilesPath = ConfigurationManager.AppSettings["filesPathForLogging"];
+        private static string _logFilesPath = ConfigurationManager.AppSettings["filesPathForLogging"];
+
+        private const string DefaultFilePath = @"..\..\..\log.txt";
 
         internal static void WriteLine(string message)
         {
-            using (var streamWriter = new StreamWriter(LogFilesPath, true))
+            try
             {
-                streamWriter.WriteLine($"{DateTime.Now.ToString(CultureInfo.InvariantCulture) + ":",-21} {message}");
+                using (var streamWriter = new StreamWriter(_logFilesPath, true))
+                {
+                    streamWriter.WriteLine(
+                        $"{DateTime.Now.ToString(CultureInfo.InvariantCulture) + ":",-21} {message}");
+                }
+            }
+            catch (ArgumentNullException)
+            {
+                _logFilesPath = DefaultFilePath;
+
+                WriteLine(message);
+            }
+            catch (Exception)
+            {
+                // Notify User Without Stopping Work
             }
         }
     }
