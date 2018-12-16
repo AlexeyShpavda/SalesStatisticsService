@@ -28,10 +28,20 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run(IController controller)
         {
-            WatcherMapping.AddEventHandlers(FileSystemWatcher, controller);
+            try
+            {
+                WatcherMapping.AddEventHandlers(FileSystemWatcher, controller);
 
-            // check for the value of the path and filter
-            FileSystemWatcher.EnableRaisingEvents = true;
+                FileSystemWatcher.EnableRaisingEvents = true;
+            }
+            catch (ArgumentNullException)
+            {
+                Logger.WriteLine("Set Path to Directory to Track in AppConfig file.");
+            }
+            catch (Exception)
+            {
+                Logger.WriteLine("AN ERROR HAS OCCURRED! Check AppConfig file.");
+            }
         }
 
         public void Stop(IController controller)
@@ -49,10 +59,7 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
             {
                 if (disposing)
                 {
-                    lock (this)
-                    {
-                        FileSystemWatcher.Dispose();
-                    }
+                    FileSystemWatcher.Dispose();
                 }
             }
             _disposed = true;
