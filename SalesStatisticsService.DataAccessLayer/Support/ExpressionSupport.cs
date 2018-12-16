@@ -6,19 +6,25 @@ namespace SalesStatisticsService.DataAccessLayer.Support
 {
     public static class ExpressionSupport
     {
-        public static Expression<Func<TTargetType, bool>> Project<TSourceType, TTargetType>(this Expression<Func<TSourceType, bool>> sourceExpression)
+        public static Expression<Func<TTargetType, bool>> Project<TSourceType, TTargetType>(
+            this Expression<Func<TSourceType, bool>> sourceExpression)
         {
-            ParameterExpression sourceParameter = sourceExpression.Parameters.FirstOrDefault();
-            ParameterExpression targetParameter = Expression.Parameter(typeof(TTargetType), sourceParameter.Name);
-            Expression newBody = new TransformVisitor<TTargetType>(sourceParameter, targetParameter).Visit(sourceExpression.Body);
+            var sourceParameter = sourceExpression.Parameters.FirstOrDefault();
+
+            var targetParameter = Expression.Parameter(typeof(TTargetType), sourceParameter?.Name);
+
+            var newBody = new TransformVisitor(sourceParameter, targetParameter).Visit(sourceExpression.Body);
+
             var paramsList = sourceExpression.Parameters.ToList();
+
             var position = paramsList.IndexOf(sourceParameter);
+
             paramsList[position] = targetParameter;
+
             return Expression.Lambda<Func<TTargetType, bool>>(newBody, paramsList);
         }
 
-
-        private class TransformVisitor<TTarget> : ExpressionVisitor
+        private class TransformVisitor : ExpressionVisitor
         {
             private readonly ParameterExpression _targetParameter;
             private readonly ParameterExpression _sourceParameter;
@@ -38,17 +44,14 @@ namespace SalesStatisticsService.DataAccessLayer.Support
             {
                 if ((node.Member.MemberType & System.Reflection.MemberTypes.Property) != 0)
                 {
-                    MemberExpression newExpression = Expression.Property(Visit(node.Expression), node.Member.Name);
+                    var newExpression = Expression.Property(Visit(node.Expression), node.Member.Name);
                     return newExpression;
                 }
-                else if ((node.Member.MemberType & System.Reflection.MemberTypes.Field) != 0)
+
+                if ((node.Member.MemberType & System.Reflection.MemberTypes.Field) == 0) return base.VisitMember(node);
                 {
-                    MemberExpression newExpression = Expression.Field(Visit(node.Expression), node.Member.Name);
+                    var newExpression = Expression.Field(Visit(node.Expression), node.Member.Name);
                     return newExpression;
-                }
-                else
-                {
-                    return base.VisitMember(node);
                 }
             }
         }
