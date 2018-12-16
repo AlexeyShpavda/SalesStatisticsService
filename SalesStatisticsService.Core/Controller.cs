@@ -48,6 +48,11 @@ namespace SalesStatisticsService.Core
             DirectoryWatcher.Stop(this);
         }
 
+        public IEnumerable<SaleDto> ShowAllSales()
+        {
+            return SaleUnitOfWork.GetAll();
+        }
+
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
             var fileNameSplitter = char.Parse(ConfigurationManager.AppSettings["fileNameSplitter"]);
@@ -102,11 +107,6 @@ namespace SalesStatisticsService.Core
         {
             Dispose(true);
             GC.SuppressFinalize(this);
-        }
-
-        public void Dispose()
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -78,9 +78,9 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories.Abstract
             return Mapper.Map<TDto>(DbSet.Find(id));
         }
 
-        public IQueryable<TDto> GetAll()
+        public IEnumerable<TDto> GetAll()
         {
-            return Mapper.Map<IQueryable<TDto>>(DbSet.AsNoTracking());
+            return Mapper.Map<IEnumerable<TDto>>(DbSet.AsNoTracking());
         }
 
         public IEnumerable<TDto> Find(Expression<Func<TDto, bool>> predicate)

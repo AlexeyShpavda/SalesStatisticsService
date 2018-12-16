@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
@@ -56,6 +57,11 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
             {
                 Locker.ExitWriteLock();
             }
+        }
+
+        public IEnumerable<SaleDto> GetAll()
+        {
+            return Sales.GetAll();
         }
     }
 }
