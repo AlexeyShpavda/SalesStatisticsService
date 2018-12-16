@@ -55,6 +55,7 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
+            Logger.WriteLine($"{e.Name} has been added to the directory.");
             var fileNameSplitter = char.Parse(ConfigurationManager.AppSettings["fileNameSplitter"]);
 
             Task.Run(() =>
