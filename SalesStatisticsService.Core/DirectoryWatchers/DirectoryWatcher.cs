@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
 using System.Security.Permissions;
 using SalesStatisticsService.Contracts.Core;
@@ -8,11 +9,11 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
 {
     public class DirectoryWatcher : IDirectoryWatcher
     {
-        private readonly FileSystemWatcher _fileSystemWatcher;
+        private FileSystemWatcher FileSystemWatcher { get; }
 
         public DirectoryWatcher()
         {
-            _fileSystemWatcher = new FileSystemWatcher
+            FileSystemWatcher = new FileSystemWatcher
             {
                 Path = ConfigurationManager.AppSettings["filesPath"],
                 Filter = ConfigurationManager.AppSettings["filesFilter"],
@@ -26,18 +27,41 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
         public void Run(IController controller)
-        { 
-            WatcherMapping.AddEventHandlers(_fileSystemWatcher, controller);
+        {
+            WatcherMapping.AddEventHandlers(FileSystemWatcher, controller);
 
             // check for the value of the path and filter
-            _fileSystemWatcher.EnableRaisingEvents = true;
+            FileSystemWatcher.EnableRaisingEvents = true;
         }
 
         public void Stop(IController controller)
         {
-            WatcherMapping.RemoveEventHandlers(_fileSystemWatcher, controller);
+            WatcherMapping.RemoveEventHandlers(FileSystemWatcher, controller);
 
-            _fileSystemWatcher.EnableRaisingEvents = false;
+            FileSystemWatcher.EnableRaisingEvents = false;
+        }
+
+        private bool _disposed;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    lock (this)
+                    {
+                        FileSystemWatcher.Dispose();
+                    }
+                }
+            }
+            _disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }
