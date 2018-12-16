@@ -6,21 +6,19 @@ using SalesStatisticsService.Contracts.Core.DataTransferObjects.Abstract;
 
 namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
-    public interface IGenericRepository<TModel, TEntity>
-        where TModel : DataTransferObject
-        where TEntity : class
+    public interface IGenericRepository<TDto> where TDto : DataTransferObject
     {
-        void Add(params TModel[] models);
+        void Add(params TDto[] models);
 
-        void Update(params TModel[] entities);
+        void Update(params TDto[] entities);
 
-        void Remove(params TModel[] entities);
+        void Remove(params TDto[] entities);
 
-        TModel Get(int id);
+        TDto Get(int id);
 
-        IQueryable<TModel> GetAll();
+        IQueryable<TDto> GetAll();
 
-        IEnumerable<TModel> Find(Expression<Func<TEntity, bool>> predicate);
+        IEnumerable<TDto> Find(Expression<Func<TDto, bool>> predicate);
 
         void Save();
     }
