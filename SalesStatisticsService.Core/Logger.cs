@@ -13,6 +13,8 @@ namespace SalesStatisticsService.Core
 
         internal static void WriteLine(string message)
         {
+            if (string.IsNullOrEmpty(message)) return;
+
             try
             {
                 using (var streamWriter = new StreamWriter(_logFilesPath, true))
