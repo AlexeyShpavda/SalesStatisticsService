@@ -51,6 +51,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SalesStatisticsService.Contracts\SalesStatisticsService.Contracts.csproj">
+      <Project>{AD0E9EBF-D8A2-43C9-BEFD-70C94FE86718}</Project>
+      <Name>SalesStatisticsService.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SalesStatisticsService.Core\SalesStatisticsService.Core.csproj">
       <Project>{c7a18be5-6875-4824-8d9e-b414a24a4e9e}</Project>
       <Name>SalesStatisticsService.Core</Name>

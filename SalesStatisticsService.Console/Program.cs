@@ -6,11 +6,14 @@ namespace SalesStatisticsService.Console
     {
         private static void Main()
         {
-            var controller = new Controller();
+            using (var controller = new Controller())
+            {
+                controller.Run();
+              
+                System.Console.ReadKey();
 
-            controller.Run();
-
-            System.Console.ReadKey();
+                controller.Stop();
+            }
         }
     }
 }

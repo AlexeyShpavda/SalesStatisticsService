@@ -16,7 +16,7 @@ using IParser = SalesStatisticsService.Contracts.Core.IParser;
 
 namespace SalesStatisticsService.Core
 {
-    public class Controller : IController
+    public class Controller : IController, IDisposable
     {
         private SalesInformationContext Context { get; }
         private ReaderWriterLockSlim Locker { get; }
@@ -102,6 +102,11 @@ namespace SalesStatisticsService.Core
         {
             Dispose(true);
             GC.SuppressFinalize(this);
+        }
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
         }
     }
 }
