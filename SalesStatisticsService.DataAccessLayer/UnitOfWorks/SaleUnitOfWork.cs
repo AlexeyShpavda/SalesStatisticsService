@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Threading;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
@@ -10,80 +9,50 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
 {
     public class SaleUnitOfWork : ISaleUnitOfWork
     {
-        private readonly SalesInformationContext _context;
+        private SalesInformationContext Context { get; }
+        private ReaderWriterLockSlim Locker { get; }
 
-        private IGenericRepository<CustomerDto, Customer> Customers { get; }
-        private IGenericRepository<ManagerDto, Manager> Managers { get; }
-        private IGenericRepository<ProductDto, Product> Products { get; }
-        private IGenericRepository<SaleDto, Sale> Sales { get; }
+        private ICustomerRepository Customers { get; }
+        private IManagerRepository Managers { get; }
+        private IProductRepository Products { get; }
+        private ISaleRepository Sales { get; }
 
-        public SaleUnitOfWork(SalesInformationContext context)
+        public SaleUnitOfWork(SalesInformationContext context, ReaderWriterLockSlim locker)
         {
-            _context = context;
+            Context = context;
+            Locker = locker;
 
             var mapper = AutoMapper.CreateConfiguration().CreateMapper();
-            Customers = new GenericRepository<CustomerDto, Customer>(_context, mapper);
-            Managers = new GenericRepository<ManagerDto, Manager>(_context, mapper);
-            Products = new GenericRepository<ProductDto, Product>(_context, mapper);
-            Sales = new GenericRepository<SaleDto, Sale>(_context, mapper);
+            Customers = new CustomerRepository(Context, mapper);
+            Managers = new ManagerRepository(Context, mapper);
+            Products = new ProductRepository(Context, mapper);
+            Sales = new SaleRepository(Context, mapper);
         }
 
         public void Add(params SaleDto[] sales)
         {
-            lock (this)
+            Locker.EnterWriteLock();
+            try
             {
                 foreach (var sale in sales)
                 {
-                    if (Customers.Find(x =>
-                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).Any())
-                    {
-                        Customers.Add(sale.Customer);
-                        Customers.Save();
-                    }
-                    sale.Customer.Id = Customers.Find(x =>
-                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
+                    sale.Customer.Id = Customers.AddUniqueCustomerToDatabase(sale.Customer);
+                    Customers.Save();
 
-                    if (Managers.Find(x => x.LastName == sale.Manager.LastName).Any())
-                    {
-                        Managers.Add(sale.Manager);
-                        Managers.Save();
-                    }
-                    sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
+                    sale.Manager.Id = Managers.AddUniqueManagerToDatabase(sale.Manager);
+                    Managers.Save();
 
-                    if (Products.Find(x => x.Name == sale.Product.Name).Any())
-                    {
-                        Products.Add(sale.Product);
-                        Products.Save();
-                    }
-                    sale.Product.Id = Products.Find(x => x.Name == sale.Product.Name).First().Id;
+                    sale.Product.Id = Products.AddUniqueProductToDatabase(sale.Product);
+                    Products.Save();
 
                     Sales.Add(sale);
                     Sales.Save();
                 }
             }
-        }
-
-        private bool _disposed;
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!_disposed)
+            finally
             {
-                if (disposing)
-                {
-                    lock (this)
-                    {
-                        _context.Dispose();
-                    }
-                }
+                Locker.ExitWriteLock();
             }
-            _disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
         }
     }
 }
