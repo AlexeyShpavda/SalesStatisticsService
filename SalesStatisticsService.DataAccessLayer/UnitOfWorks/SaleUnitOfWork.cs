@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.DataAccessLayer.Repositories;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
@@ -39,16 +38,15 @@ namespace SalesStatisticsService.DataAccessLayer.UnitOfWorks
                 {
                     Customers.AddUniqueCustomerToDatabase(sale.Customer);
                     Customers.Save();
-                    sale.Customer.Id = Customers.Find(x =>
-                        x.LastName == sale.Customer.LastName && x.FirstName == sale.Customer.FirstName).First().Id;
+                    sale.Customer.Id = Customers.GetId(sale.Customer.FirstName, sale.Customer.LastName);
 
                     Managers.AddUniqueManagerToDatabase(sale.Manager);
                     Managers.Save();
-                    sale.Manager.Id = Managers.Find(x => x.LastName == sale.Manager.LastName).First().Id;
+                    sale.Manager.Id = Managers.GetId(sale.Manager.LastName);
 
                     Products.AddUniqueProductToDatabase(sale.Product);
                     Products.Save();
-                    sale.Product.Id = Products.Find(x => x.Name == sale.Product.Name).First().Id;
+                    sale.Product.Id = Products.GetId(sale.Product.Name);
 
                     Sales.Add(sale);
                     Sales.Save();

@@ -23,5 +23,12 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
             Add(productDto);
         }
+
+        public int? GetId(string productName)
+        {
+            Expression<Func<ProductDto, bool>> predicate = x => x.Name == productName;
+
+            return Find(predicate).First().Id;
+        }
     }
 }

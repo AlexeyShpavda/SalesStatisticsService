@@ -23,5 +23,12 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
 
             Add(managerDto);
         }
+
+        public int? GetId(string managerLastName)
+        {
+            Expression<Func<ManagerDto, bool>> predicate = x => x.LastName == managerLastName;
+
+            return Find(predicate).First().Id;
+        }
     }
 }
