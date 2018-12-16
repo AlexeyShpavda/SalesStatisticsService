@@ -15,16 +15,14 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
         {
         }
 
-        public int? AddUniqueCustomerToDatabase(CustomerDto customerDto)
+        public void AddUniqueCustomerToDatabase(CustomerDto customerDto)
         {
             Expression<Func<CustomerDto, bool>> predicate = x =>
                 x.LastName == customerDto.LastName && x.FirstName == customerDto.FirstName;
 
-            if (Find(predicate).Any()) return Find(predicate).First().Id;
+            if (Find(predicate).Any()) return;
 
             Add(customerDto);
-
-            return Find(predicate).First().Id;
         }
     }
 }

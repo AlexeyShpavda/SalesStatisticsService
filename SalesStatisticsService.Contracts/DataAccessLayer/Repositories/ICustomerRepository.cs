@@ -4,6 +4,6 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
     public interface ICustomerRepository : IGenericRepository<CustomerDto>
     {
-        int? AddUniqueCustomerToDatabase(CustomerDto customerDto);
+        void AddUniqueCustomerToDatabase(CustomerDto customerDto);
     }
 }

@@ -15,15 +15,13 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
         {
         }
 
-        public int? AddUniqueProductToDatabase(ProductDto productDto)
+        public void AddUniqueProductToDatabase(ProductDto productDto)
         {
             Expression<Func<ProductDto, bool>> predicate = x => x.Name == productDto.Name;
 
-            if (Find(predicate).Any()) return Find(predicate).First().Id;
+            if (Find(predicate).Any()) return;
 
             Add(productDto);
-
-            return Find(predicate).First().Id;
         }
     }
 }

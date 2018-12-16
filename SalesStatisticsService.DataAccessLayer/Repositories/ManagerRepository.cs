@@ -15,15 +15,13 @@ namespace SalesStatisticsService.DataAccessLayer.Repositories
         {
         }
 
-        public int? AddUniqueManagerToDatabase(ManagerDto managerDto)
+        public void AddUniqueManagerToDatabase(ManagerDto managerDto)
         {
             Expression<Func<ManagerDto, bool>> predicate = x => x.LastName == managerDto.LastName;
 
-            if (Find(predicate).Any()) return Find(predicate).First().Id;
+            if (Find(predicate).Any()) return;
 
             Add(managerDto);
-
-            return Find(predicate).First().Id;
         }
     }
 }

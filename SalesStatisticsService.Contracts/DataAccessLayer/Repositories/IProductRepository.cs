@@ -4,6 +4,6 @@ namespace SalesStatisticsService.Contracts.DataAccessLayer.Repositories
 {
     public interface IProductRepository : IGenericRepository<ProductDto>
     {
-        int? AddUniqueProductToDatabase(ProductDto productDto);
+        void AddUniqueProductToDatabase(ProductDto productDto);
     }
 }
