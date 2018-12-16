@@ -49,7 +49,12 @@
   <ItemGroup>
     <Compile Include="AutoMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\Abstract\GenericRepository.cs" />
+    <Compile Include="Repositories\ManagerRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\SaleRepository.cs" />
+    <Compile Include="Support\ExpressionSupport.cs" />
     <Compile Include="UnitOfWorks\SaleUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -66,5 +71,6 @@
       <Name>SalesStatisticsService.Entity</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

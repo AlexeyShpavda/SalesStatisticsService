@@ -44,7 +44,11 @@
     <Compile Include="Core\IController.cs" />
     <Compile Include="Core\IFileContent.cs" />
     <Compile Include="Core\IParser.cs" />
+    <Compile Include="DataAccessLayer\Repositories\ICustomerRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\IGenericRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\IManagerRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\IProductRepository.cs" />
+    <Compile Include="DataAccessLayer\Repositories\ISaleRepository.cs" />
     <Compile Include="DataAccessLayer\UnitOfWorks\ISaleUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
