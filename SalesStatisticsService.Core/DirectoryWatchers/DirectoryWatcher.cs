@@ -12,16 +12,23 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
 
         public DirectoryWatcher(string directoryPath, string filesFilter)
         {
-            FileSystemWatcher = new FileSystemWatcher
+            try
             {
-                Path = directoryPath,
-                Filter = filesFilter,
+                FileSystemWatcher = new FileSystemWatcher
+                {
+                    Path = directoryPath,
+                    Filter = filesFilter,
 
-                NotifyFilter = NotifyFilters.LastAccess
-                               | NotifyFilters.LastWrite
-                               | NotifyFilters.FileName
-                               | NotifyFilters.DirectoryName
-            };
+                    NotifyFilter = NotifyFilters.LastAccess
+                                   | NotifyFilters.LastWrite
+                                   | NotifyFilters.FileName
+                                   | NotifyFilters.DirectoryName
+                };
+            }
+            catch (ArgumentException)
+            {
+                Logger.WriteLine("Check out Path to Directory to Track in AppConfig file.");
+            }
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
