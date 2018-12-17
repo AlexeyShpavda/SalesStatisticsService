@@ -19,6 +19,7 @@ namespace SalesStatisticsService.WindowsService
             var filesFilter = ConfigurationManager.AppSettings["filesFilter"];
 
             _controller = new Controller(directoryPath, filesFilter);
+            _controller.Run();
         }
 
         protected override void OnStop()
