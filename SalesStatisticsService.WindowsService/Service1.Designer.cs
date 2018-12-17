@@ -1,6 +1,6 @@
-﻿namespace SalesStatisticsService.Service
+﻿namespace SalesStatisticsService.WindowsService
 {
-    partial class WindowsService
+    partial class Service1
     {
         /// <summary> 
         /// Required designer variable.

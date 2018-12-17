@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.Core", "SalesStatisticsService.Core\SalesStatisticsService.Core.csproj", "{C7A18BE5-6875-4824-8D9E-B414A24A4E9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.Service", "SalesStatisticsService.Service\SalesStatisticsService.Service.csproj", "{4E489E49-3B8B-47D0-9E02-958D85E3D754}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesStatisticsService.WindowsService", "SalesStatisticsService.WindowsService\SalesStatisticsService.WindowsService.csproj", "{84904844-09F4-4657-8A7F-4D74B2FE20C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{C7A18BE5-6875-4824-8D9E-B414A24A4E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7A18BE5-6875-4824-8D9E-B414A24A4E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7A18BE5-6875-4824-8D9E-B414A24A4E9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E489E49-3B8B-47D0-9E02-958D85E3D754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E489E49-3B8B-47D0-9E02-958D85E3D754}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E489E49-3B8B-47D0-9E02-958D85E3D754}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E489E49-3B8B-47D0-9E02-958D85E3D754}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84904844-09F4-4657-8A7F-4D74B2FE20C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84904844-09F4-4657-8A7F-4D74B2FE20C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84904844-09F4-4657-8A7F-4D74B2FE20C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84904844-09F4-4657-8A7F-4D74B2FE20C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
