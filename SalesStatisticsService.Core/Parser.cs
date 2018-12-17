@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using CsvHelper;
 using SalesStatisticsService.Contracts.Core;
+using static System.String;
 
 namespace SalesStatisticsService.Core
 {
@@ -14,7 +15,15 @@ namespace SalesStatisticsService.Core
             {
                 var csvReader = new CsvReader(streamReader);
 
-                return csvReader.GetRecords<FileContent>().ToList();
+                foreach (var record in csvReader.GetRecords<FileContent>())
+                {
+                    yield return record.Product != Empty &&
+                                 record.Customer != Empty &&
+                                 record.Date != Empty &&
+                                 record.Sum != Empty
+                        ? record
+                        : throw new FormatException("File Should Not Contain Empty Fields");
+                }
             }
         }
 

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using CsvHelper;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
@@ -55,14 +56,79 @@ namespace SalesStatisticsService.Core
 
         public void ProcessFile(object source, FileSystemEventArgs e)
         {
-            Logger.WriteLine($"{e.Name} has been added to the directory.");
+            Logger.WriteLine($"{e.Name} Has Been Added to Directory.");
             var fileNameSplitter = char.Parse(ConfigurationManager.AppSettings["fileNameSplitter"]);
 
             Task.Run(() =>
             {
-                WriteToDatabase(
-                    Parser.ParseFile(e.FullPath),
-                    Parser.ParseLine(e.Name, fileNameSplitter).First());
+                try
+                {
+                    WriteToDatabase(
+                        Parser.ParseFile(e.FullPath),
+                        Parser.ParseLine(e.Name, fileNameSplitter).First());
+
+                    Locker.EnterWriteLock();
+                    try
+                    {
+                        Logger.WriteLine($"{e.Name} Was Successfully Added to Database");
+                    }
+                    finally
+                    {
+                        Locker.ExitWriteLock();
+                    }
+                }
+                catch (HeaderValidationException)
+                {
+                    Locker.EnterWriteLock();
+                    try
+                    {
+                        Logger.WriteLine($"{e.Name} First Line Must Match Template =>" +
+                                         " Date | Customer | Product | Sum");
+                    }
+                    finally
+                    {
+                        Locker.ExitWriteLock();
+                    }
+                }
+                catch (FormatException exception)
+                {
+                    Locker.EnterWriteLock();
+                    try
+                    {
+                        Logger.WriteLine($"{e.Name} {exception.Message}");
+                    }
+                    finally
+                    {
+                        Locker.ExitWriteLock();
+                    }
+                }
+                catch (ArgumentNullException)
+                {
+                    Locker.EnterWriteLock();
+                    try
+                    {
+                        Logger.WriteLine("AppConfig Must Contain Format of Date Entry" +
+                                         " and Separator of First and Last Customer Name");
+
+                    }
+                    finally
+                    {
+                        Locker.ExitWriteLock();
+                    }
+                }
+                catch (Exception)
+                {
+                    Locker.EnterWriteLock();
+                    try
+                    {
+                        Logger.WriteLine($"{e.Name} AN ERROR OCCURRED, Information is not Added to Database");
+
+                    }
+                    finally
+                    {
+                        Locker.ExitWriteLock();
+                    }
+                }
             });
         }
 
@@ -74,18 +140,25 @@ namespace SalesStatisticsService.Core
         private IEnumerable<SaleDto> CreateDataTransferObjects(IEnumerable<IFileContent> fileContents,
             string managerLastName)
         {
-            var dateFormat = ConfigurationManager.AppSettings["dateFormat"];
-            var customerNameSplitter = char.Parse(ConfigurationManager.AppSettings["customerNameSplitter"]);
+            try
+            {
+                var dateFormat = ConfigurationManager.AppSettings["dateFormat"];
+                var customerNameSplitter = char.Parse(ConfigurationManager.AppSettings["customerNameSplitter"]);
 
-            return (from fileContent in fileContents
-                    let date = DateTime.ParseExact(fileContent.Date, dateFormat, null)
-                    let customerName = Parser.ParseLine(fileContent.Customer, customerNameSplitter)
-                    let customerDto = new CustomerDto(customerName[0], customerName[1])
-                    let productDto = new ProductDto(fileContent.Product)
-                    let sum = decimal.Parse(fileContent.Sum)
-                    let managerDto = new ManagerDto(managerLastName)
-                    select new SaleDto(date, customerDto, productDto, sum, managerDto))
-                .ToList();
+                return (from fileContent in fileContents
+                        let date = DateTime.ParseExact(fileContent.Date, dateFormat, null)
+                        let customerName = Parser.ParseLine(fileContent.Customer, customerNameSplitter)
+                        let customerDto = new CustomerDto(customerName[0], customerName[1])
+                        let productDto = new ProductDto(fileContent.Product)
+                        let sum = decimal.Parse(fileContent.Sum)
+                        let managerDto = new ManagerDto(managerLastName)
+                        select new SaleDto(date, customerDto, productDto, sum, managerDto))
+                    .ToList();
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new FormatException("Customer Field Must Contain First and Last Name");
+            }
         }
 
         private bool _disposed;
