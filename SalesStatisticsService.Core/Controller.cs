@@ -67,69 +67,41 @@ namespace SalesStatisticsService.Core
                         Parser.ParseFile(e.FullPath),
                         Parser.ParseLine(e.Name, fileNameSplitter).First());
 
-                    Locker.EnterWriteLock();
-                    try
-                    {
-                        Logger.WriteLine($"{e.Name} Was Successfully Added to Database");
-                    }
-                    finally
-                    {
-                        Locker.ExitWriteLock();
-                    }
+                    Log($"{e.Name} Was Successfully Added to Database");
                 }
                 catch (HeaderValidationException)
                 {
-                    Locker.EnterWriteLock();
-                    try
-                    {
-                        Logger.WriteLine($"{e.Name} First Line Must Match Template =>" +
-                                         " Date | Customer | Product | Sum");
-                    }
-                    finally
-                    {
-                        Locker.ExitWriteLock();
-                    }
+                    Log($"{e.Name} First Line Must Match Template =>" +
+                        " Date | Customer | Product | Sum");
                 }
                 catch (FormatException exception)
                 {
-                    Locker.EnterWriteLock();
-                    try
-                    {
-                        Logger.WriteLine($"{e.Name} {exception.Message}");
-                    }
-                    finally
-                    {
-                        Locker.ExitWriteLock();
-                    }
+                    Log($"{e.Name} {exception.Message}");
                 }
                 catch (ArgumentNullException)
                 {
-                    Locker.EnterWriteLock();
-                    try
-                    {
-                        Logger.WriteLine("AppConfig Must Contain Format of Date Entry" +
-                                         " and Separator of First and Last Customer Name");
-
-                    }
-                    finally
-                    {
-                        Locker.ExitWriteLock();
-                    }
+                    Log("AppConfig Must Contain Format of Date Entry" +
+                        " and Separator of First and Last Customer Name");
                 }
                 catch (Exception)
                 {
-                    Locker.EnterWriteLock();
-                    try
-                    {
-                        Logger.WriteLine($"{e.Name} AN ERROR OCCURRED, Information is not Added to Database");
-
-                    }
-                    finally
-                    {
-                        Locker.ExitWriteLock();
-                    }
+                    Log($"{e.Name} AN ERROR OCCURRED, Information is not Added to Database");
                 }
             });
+        }
+
+        public void Log(string message)
+        {
+            Locker.EnterWriteLock();
+            try
+            {
+                Logger.WriteLine(message);
+
+            }
+            finally
+            {
+                Locker.ExitWriteLock();
+            }
         }
 
         private void WriteToDatabase(IEnumerable<IFileContent> sales, string managerLastName)
