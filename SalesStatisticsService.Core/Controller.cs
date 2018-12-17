@@ -26,13 +26,13 @@ namespace SalesStatisticsService.Core
         private ISaleUnitOfWork SaleUnitOfWork { get; }
         private IParser Parser { get; }
 
-        public Controller()
+        public Controller(string directoryPath, string filesFilter)
         {
             Context = new SalesInformationContext();
 
             Locker = new ReaderWriterLockSlim();
 
-            DirectoryWatcher = new DirectoryWatcher();
+            DirectoryWatcher = new DirectoryWatcher(directoryPath, filesFilter);
 
             SaleUnitOfWork = new SaleUnitOfWork(Context, Locker);
 

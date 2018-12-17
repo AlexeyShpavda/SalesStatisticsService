@@ -1,4 +1,5 @@
-﻿using SalesStatisticsService.Core;
+﻿using System.Configuration;
+using SalesStatisticsService.Core;
 
 namespace SalesStatisticsService.Console
 {
@@ -6,13 +7,16 @@ namespace SalesStatisticsService.Console
     {
         private static void Main()
         {
-            using (var controller = new Controller())
+            var directoryPath = ConfigurationManager.AppSettings["directoryPath"];
+            var filesFilter = ConfigurationManager.AppSettings["filesFilter"];
+
+            using (var controller = new Controller(directoryPath, filesFilter))
             {
                 controller.Run();
 
                 foreach (var sale in controller.ShowAllSales())
                 {
-                    System.Console.Write($"{sale.Id} ");                 
+                    System.Console.Write($"{sale.Id} ");
                 }
 
                 System.Console.ReadKey();

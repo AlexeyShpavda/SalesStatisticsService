@@ -11,12 +11,12 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
     {
         private FileSystemWatcher FileSystemWatcher { get; }
 
-        public DirectoryWatcher()
+        public DirectoryWatcher(string directoryPath, string filesFilter)
         {
             FileSystemWatcher = new FileSystemWatcher
             {
-                Path = ConfigurationManager.AppSettings["filesPath"],
-                Filter = ConfigurationManager.AppSettings["filesFilter"],
+                Path = directoryPath,
+                Filter = filesFilter,
 
                 NotifyFilter = NotifyFilters.LastAccess
                                | NotifyFilters.LastWrite
