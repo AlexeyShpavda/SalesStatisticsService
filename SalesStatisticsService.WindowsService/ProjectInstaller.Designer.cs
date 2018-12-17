@@ -28,30 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
-            this.serviceInstaller1 = new System.ServiceProcess.ServiceInstaller();
+            this.SalesStatisticsServiceProcessInstaller = new System.ServiceProcess.ServiceProcessInstaller();
+            this.SalesStatisticsServiceInstaller = new System.ServiceProcess.ServiceInstaller();
             // 
-            // serviceProcessInstaller1
+            // SalesStatisticsServiceProcessInstaller
             // 
-            this.serviceProcessInstaller1.Account = System.ServiceProcess.ServiceAccount.LocalService;
-            this.serviceProcessInstaller1.Password = null;
-            this.serviceProcessInstaller1.Username = null;
+            this.SalesStatisticsServiceProcessInstaller.Account = System.ServiceProcess.ServiceAccount.LocalService;
+            this.SalesStatisticsServiceProcessInstaller.Password = null;
+            this.SalesStatisticsServiceProcessInstaller.Username = null;
             // 
-            // serviceInstaller1
+            // SalesStatisticsServiceInstaller
             // 
-            this.serviceInstaller1.ServiceName = "Service1";
+            this.SalesStatisticsServiceInstaller.ServiceName = "SalesStatisticsService";
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
-            this.serviceProcessInstaller1,
-            this.serviceInstaller1});
+            this.SalesStatisticsServiceProcessInstaller,
+            this.SalesStatisticsServiceInstaller});
 
         }
 
         #endregion
 
-        private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
-        private System.ServiceProcess.ServiceInstaller serviceInstaller1;
+        private System.ServiceProcess.ServiceProcessInstaller SalesStatisticsServiceProcessInstaller;
+        private System.ServiceProcess.ServiceInstaller SalesStatisticsServiceInstaller;
     }
 }
