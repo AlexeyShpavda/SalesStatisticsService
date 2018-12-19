@@ -2,16 +2,17 @@
 using System.Configuration;
 using System.Globalization;
 using System.IO;
+using SalesStatisticsService.Contracts.Core;
 
 namespace SalesStatisticsService.Core
 {
-    internal class Logger
+    internal class Logger : ILogger
     {
         private static string _logFilesPath = ConfigurationManager.AppSettings["filesPathForLogging"];
 
         private const string DefaultFilePath = @"..\..\..\log.txt";
 
-        internal static void WriteLine(string message)
+        public void WriteLine(string message)
         {
             if (string.IsNullOrEmpty(message)) return;
 

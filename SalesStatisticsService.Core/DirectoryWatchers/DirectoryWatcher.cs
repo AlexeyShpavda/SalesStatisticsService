@@ -10,10 +10,14 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
     {
         private FileSystemWatcher FileSystemWatcher { get; }
 
-        public DirectoryWatcher(string directoryPath, string filesFilter)
+        private ILogger Logger { get; }
+
+        public DirectoryWatcher(string directoryPath, string filesFilter, ILogger logger)
         {
             try
             {
+                Logger = logger;
+
                 FileSystemWatcher = new FileSystemWatcher
                 {
                     Path = directoryPath,

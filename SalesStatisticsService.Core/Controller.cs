@@ -25,6 +25,7 @@ namespace SalesStatisticsService.Core
         private IDirectoryWatcher DirectoryWatcher { get; }
         private ISaleUnitOfWork SaleUnitOfWork { get; }
         private IParser Parser { get; }
+        private ILogger Logger { get; }
 
         public Controller(string directoryPath, string filesFilter)
         {
@@ -32,7 +33,9 @@ namespace SalesStatisticsService.Core
 
             Locker = new ReaderWriterLockSlim();
 
-            DirectoryWatcher = new DirectoryWatcher(directoryPath, filesFilter);
+            Logger = new Logger();
+
+            DirectoryWatcher = new DirectoryWatcher(directoryPath, filesFilter, Logger);
 
             SaleUnitOfWork = new SaleUnitOfWork(Context, Locker);
 
