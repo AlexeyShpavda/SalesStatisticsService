@@ -14,11 +14,6 @@ namespace SalesStatisticsService.Console
             {
                 controller.Run();
 
-                foreach (var sale in controller.ShowAllSales())
-                {
-                    System.Console.Write($"{sale.Id} ");
-                }
-
                 System.Console.ReadKey();
 
                 controller.Stop();
