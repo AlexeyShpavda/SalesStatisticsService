@@ -5,7 +5,7 @@ using CsvHelper;
 using SalesStatisticsService.Contracts.Core;
 using static System.String;
 
-namespace SalesStatisticsService.Core
+namespace SalesStatisticsService.Core.FileProcessing
 {
     public class Parser : Contracts.Core.IParser
     {

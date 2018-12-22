@@ -11,6 +11,7 @@ using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Core.DirectoryWatchers;
+using SalesStatisticsService.Core.FileProcessing;
 using SalesStatisticsService.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Entity;
 using IParser = SalesStatisticsService.Contracts.Core.IParser;
