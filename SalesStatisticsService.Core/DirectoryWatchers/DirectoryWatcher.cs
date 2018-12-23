@@ -3,6 +3,7 @@ using System.IO;
 using System.Security.Permissions;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
+using SalesStatisticsService.Core.FileProcessing;
 
 namespace SalesStatisticsService.Core.DirectoryWatchers
 {
@@ -36,11 +37,11 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public void Run(IController controller)
+        public void Run(FileHandler fileHandler)
         {
             try
             {
-                WatcherMapping.AddEventHandlers(FileSystemWatcher, controller);
+                WatcherMapping.AddEventHandlers(FileSystemWatcher, fileHandler);
 
                 FileSystemWatcher.EnableRaisingEvents = true;
             }
@@ -54,9 +55,9 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
             }
         }
 
-        public void Stop(IController controller)
+        public void Stop(FileHandler fileHandler)
         {
-            WatcherMapping.RemoveEventHandlers(FileSystemWatcher, controller);
+            WatcherMapping.RemoveEventHandlers(FileSystemWatcher, fileHandler);
 
             FileSystemWatcher.EnableRaisingEvents = false;
         }
