@@ -1,2 +1,4 @@
 12/17/2018 12:44:08:  shpavda_14122018.csv Has Been Added to Directory.
 12/17/2018 12:44:09:  shpavda_14122018.csv Was Successfully Added to Database
+12/24/2018 23:11:48:  shpavda_14122018.csv Has Been Added to Directory.
+12/24/2018 23:11:48:  shpavda_14122018.csv Was Successfully Added to Database
