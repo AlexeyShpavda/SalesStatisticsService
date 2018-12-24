@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SalesStatisticsService.Contracts.Core
+namespace SalesStatisticsService.Contracts.Core.FileProcessing
 {
     public interface IParser
     {

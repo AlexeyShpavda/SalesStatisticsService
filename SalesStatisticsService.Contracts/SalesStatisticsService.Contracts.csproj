@@ -41,10 +41,11 @@
     <Compile Include="Core\DataTransferObjects\ProductDto.cs" />
     <Compile Include="Core\DataTransferObjects\SaleDto.cs" />
     <Compile Include="Core\DirectoryWatchers\IDirectoryWatcher.cs" />
+    <Compile Include="Core\FileProcessing\IFileHandler.cs" />
     <Compile Include="Core\IController.cs" />
     <Compile Include="Core\IFileContent.cs" />
     <Compile Include="Core\ILogger.cs" />
-    <Compile Include="Core\IParser.cs" />
+    <Compile Include="Core\FileProcessing\IParser.cs" />
     <Compile Include="DataAccessLayer\Repositories\ICustomerRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\IGenericRepository.cs" />
     <Compile Include="DataAccessLayer\Repositories\IManagerRepository.cs" />
