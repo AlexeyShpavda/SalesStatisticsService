@@ -3,11 +3,12 @@ using System.IO;
 using System.Security.Permissions;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
+using SalesStatisticsService.Contracts.Core.FileProcessing;
 using SalesStatisticsService.Core.FileProcessing;
 
 namespace SalesStatisticsService.Core.DirectoryWatchers
 {
-    public class DirectoryWatcher : IDirectoryWatcher
+    internal class DirectoryWatcher : IDirectoryWatcher
     {
         private FileSystemWatcher FileSystemWatcher { get; }
 
@@ -37,7 +38,7 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
         }
 
         [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-        public void Run(FileHandler fileHandler)
+        public void Run(IFileHandler fileHandler)
         {
             try
             {
@@ -55,7 +56,7 @@ namespace SalesStatisticsService.Core.DirectoryWatchers
             }
         }
 
-        public void Stop(FileHandler fileHandler)
+        public void Stop(IFileHandler fileHandler)
         {
             WatcherMapping.RemoveEventHandlers(FileSystemWatcher, fileHandler);
 

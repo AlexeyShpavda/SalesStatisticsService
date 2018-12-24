@@ -1,13 +1,14 @@
-﻿using System;
+﻿using CsvHelper;
+using SalesStatisticsService.Contracts.Core;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using CsvHelper;
-using SalesStatisticsService.Contracts.Core;
 using static System.String;
+using IParser = SalesStatisticsService.Contracts.Core.FileProcessing.IParser;
 
 namespace SalesStatisticsService.Core.FileProcessing
 {
-    public class Parser : Contracts.Core.IParser
+    public class Parser : IParser
     {
         public IEnumerable<IFileContent> ParseFile(string filePath)
         {

@@ -4,12 +4,12 @@ using System.Threading;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
 using SalesStatisticsService.Contracts.Core.DirectoryWatchers;
+using SalesStatisticsService.Contracts.Core.FileProcessing;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Core.DirectoryWatchers;
 using SalesStatisticsService.Core.FileProcessing;
 using SalesStatisticsService.DataAccessLayer.UnitOfWorks;
 using SalesStatisticsService.Entity;
-using IParser = SalesStatisticsService.Contracts.Core.IParser;
 
 namespace SalesStatisticsService.Core
 {
@@ -18,11 +18,11 @@ namespace SalesStatisticsService.Core
         private SalesInformationContext Context { get; }
         private ReaderWriterLockSlim Locker { get; }
 
-        private DirectoryWatcher DirectoryWatcher { get; }
+        private IDirectoryWatcher DirectoryWatcher { get; }
         private ISaleUnitOfWork SaleUnitOfWork { get; }
         private IParser Parser { get; }
         private ILogger Logger { get; }
-        private FileHandler FileHandler { get; }
+        private IFileHandler FileHandler { get; }
 
         public Controller(string directoryPath, string filesFilter)
         {

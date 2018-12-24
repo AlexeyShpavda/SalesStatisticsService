@@ -8,12 +8,13 @@ using System.Threading.Tasks;
 using CsvHelper;
 using SalesStatisticsService.Contracts.Core;
 using SalesStatisticsService.Contracts.Core.DataTransferObjects;
+using SalesStatisticsService.Contracts.Core.FileProcessing;
 using SalesStatisticsService.Contracts.DataAccessLayer.UnitOfWorks;
-using IParser = SalesStatisticsService.Contracts.Core.IParser;
+using IParser = SalesStatisticsService.Contracts.Core.FileProcessing.IParser;
 
 namespace SalesStatisticsService.Core.FileProcessing
 {
-    public class FileHandler
+    public class FileHandler : IFileHandler
     {
         private ReaderWriterLockSlim Locker { get; }
 
